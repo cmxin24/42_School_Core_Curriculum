@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:16:26 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/11 11:50:27 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/11 17:13:04 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_number_len(long n)
 	return (len);
 }
 
-static	void	generate_str(char *str, long m, int len)
+static void	generate_str(char *str, long m, int len)
 {
 	if (m == 0)
 		str[0] = '0';

@@ -46,7 +46,7 @@ CFLAGS = -Wall -Wextra -Werror
 OBJECT = $(SOURCE:.c=.o)
 BONUS_OBJECT = $(BONUS_SOURCE:.c=.o)
 
-.PHONY: all clean fclean re bouns
+.PHONY: all clean fclean re bonus
 
 all: $(NAME)
 

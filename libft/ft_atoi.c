@@ -1,48 +1,38 @@
 /* ************************************************************************** */
-/*\\\\\\\\\\\\\\\ */
-/*\\\\\\\\\\\ :::\ ::::::::   */
-/*   ft_atoi.c\\\\\\\\  :+:\ :+:    :+:   */
-/*\\\\\\\\\\  +:+ +:+\    +:+\*/
-/*   By: meyu <meyu@student.42.fr>\\\   +#+  +:+\  +#+\   */
-/*\\\\\\\\\   +#+#+#+#+#+   +#+\\ */
-/*   Created: 2025/07/08 20:23:39 by xin\\\#+#    #+#\\   */
-/*   Updated: 2025/07/11 14:40:41 by meyu\\   ###   ########.fr\  */
-/*\\\\\\\\\\\\\\\ */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/11 17:18:26 by meyu              #+#    #+#             */
+/*   Updated: 2025/07/11 18:05:43 by meyu             ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
-
-static void	ft_sign(const char *str, int *start, int *sign)
-{
-	if (str[*start] == '-')
-		*sign = -*sign;
-	if (str[*start] == '-' || str[*start] == '+')
-		(*start)++;
-}
 
 int	ft_atoi(const char *str)
 {
-	int	len;
-	int	num;
-	int	sign;
-	int	start;
+	int		i;
+	int		num;
+	int		sign;
 
-	len = 0;
 	num = 0;
 	sign = 1;
-	start = 0;
-	while (str[start] == ' ' || (str[start] >= 9 && str[start] <= 13))
-		start++;
-	ft_sign(str, &start, &sign);
-	while (str[len + start] >= '0' && str[len + start] <= '9')
-		len++;
-	while (len)
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		num = num * 10 + (str[start] - 48);
-		start++;
-		len--;
+		if (str[i] == '-')
+			sign = -1;
+		i++;
 	}
-	if (sign == -1)
-		num = -num;
-	return (num);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + (str[i] - '0');
+		i++;
+	}
+	return (num * sign);
 }
 
 /* #include <stdio.h>

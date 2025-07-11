@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:24:50 by xin               #+#    #+#             */
-/*   Updated: 2025/07/11 11:15:52 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/11 17:51:58 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	ft_free(char **s, size_t size)
 {
 	size_t	i;
 
+	if (!s)
+		return ;
 	i = 0;
 	while (i < size)
 	{
@@ -81,7 +83,7 @@ char	**ft_split(char const *s, char c)
 	char	**new_array;
 
 	if (!s)
-		return (0);
+		return (NULL);
 	i = 0;
 	new_array = (char **)malloc ((ft_get_count(s, c) + 1) * sizeof(char *));
 	if (!new_array)
