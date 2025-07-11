@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/07 14:29:27 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/11 17:01:11 by meyu             ###   ########.fr       */
+/*   Created: 2025/07/11 16:19:37 by meyu              #+#    #+#             */
+/*   Updated: 2025/07/11 16:43:01 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isascii(int c)
+#include "libft.h"
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	return ((c >= 0) && (c <= 127));
+	t_list	*last;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	last = *lst;
+	while (last -> next)
+		last = last -> next;
+	last -> next = new;
 }

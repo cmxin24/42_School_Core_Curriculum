@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/07 14:29:27 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/11 17:01:11 by meyu             ###   ########.fr       */
+/*   Created: 2025/07/11 15:07:15 by meyu              #+#    #+#             */
+/*   Updated: 2025/07/11 16:09:36 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isascii(int c)
+#include "libft.h"
+
+t_list	*ft_lstnew(void *content)
 {
-	return ((c >= 0) && (c <= 127));
+	t_list	*new_node;
+
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node -> content = content;
+	new_node -> next = NULL;
+	return (new_node);
 }
