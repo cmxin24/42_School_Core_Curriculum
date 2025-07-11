@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 22:12:26 by xin               #+#    #+#             */
-/*   Updated: 2025/07/10 20:29:41 by xin              ###   ########.fr       */
+/*   Updated: 2025/07/11 11:09:05 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_check_len(char **subs, size_t s_len, unsigned int start)
+static int	ft_check_len(char **subs, size_t s_len, unsigned int start)
 {
 	if (start >= s_len)
 	{
@@ -25,7 +25,7 @@ int	ft_check_len(char **subs, size_t s_len, unsigned int start)
 	return (1);
 }
 
-size_t	ft_count_len(size_t s_len, size_t len, unsigned int start)
+static size_t	ft_count_len(size_t s_len, size_t len, unsigned int start)
 {
 	size_t	subs_len;
 

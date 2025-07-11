@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 08:03:39 by xin               #+#    #+#             */
-/*   Updated: 2025/07/11 09:24:13 by xin              ###   ########.fr       */
+/*   Updated: 2025/07/11 12:26:57 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_find_set(char c, const char *set)
+static int	ft_find_set(char c, const char *set)
 {
 	while (*set)
 	{
@@ -23,7 +23,7 @@ int	ft_find_set(char c, const char *set)
 	return (0);
 }
 
-char	*ft_new_str_cpy(char **str, size_t len, size_t start, char const *s1)
+static char	*ft_new_str(char **str, size_t len, size_t start, char const *s1)
 {
 	size_t	i;
 
@@ -61,5 +61,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 	new_str = (char *)malloc (new_len + 1);
 	if (!new_str)
 		return (NULL);
-	return (ft_new_str_cpy(&new_str, new_len, start, s1));
+	return (ft_new_str(&new_str, new_len, start, s1));
 }

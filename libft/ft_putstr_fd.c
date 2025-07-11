@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 20:10:56 by xin               #+#    #+#             */
-/*   Updated: 2025/07/11 12:28:29 by meyu             ###   ########.fr       */
+/*   Created: 2025/07/11 12:15:29 by meyu              #+#    #+#             */
+/*   Updated: 2025/07/11 12:18:19 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t				i;
-	const unsigned char	*a;
-	const unsigned char	*b;
+	size_t	i;
 
-	a = (const unsigned char *)s1;
-	b = (const unsigned char *)s2;
+	if (!s || !fd)
+		return ;
 	i = 0;
-	while (i < n)
+	while (s[i])
 	{
-		if (a[i] != b[i])
-			return (a[i] - b[i]);
+		write(fd, &s[i], 1);
 		i++;
 	}
-	return (0);
 }

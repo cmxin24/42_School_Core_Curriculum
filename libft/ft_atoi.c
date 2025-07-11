@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 20:23:39 by xin               #+#    #+#             */
-/*   Updated: 2025/07/08 20:30:16 by xin              ###   ########.fr       */
+/*   Updated: 2025/07/11 12:25:41 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_sign(const char *str, int *start, int *sign)
+static void	ft_sign(const char *str, int *start, int *sign)
 {
 	while (str[*start] == '+' || str[*start] == '-')
 	{
