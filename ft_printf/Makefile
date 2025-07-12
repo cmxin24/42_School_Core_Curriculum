@@ -1,18 +1,22 @@
 NAME = libftprintf.a
 
-SRC = 
+CFLAGS = -Wall -Wextra -Werror
+SRC = ft_printf.c
 
-OBJ
+OBJ = %(SRC:.c=.o)
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
 clean:
+	rm -f $(OBJ)
 
-fclean:
+fclean: clean
+	rm -f $(NAME)
 
-re: 
+re: fclean all
 

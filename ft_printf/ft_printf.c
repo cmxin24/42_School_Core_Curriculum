@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:44:11 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/11 20:44:44 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/11 22:38:28 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_printf(const char *, ...)
+#include "ft_printf.h"
+
+int	ft_printf(const char *format, ...)
 {
 	
 }
