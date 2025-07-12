@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:44:06 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/11 21:57:46 by xin              ###   ########.fr       */
+/*   Updated: 2025/07/12 16:11:56 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
+# include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
 
-int	ft_printf(const char *, ...);
+int	ft_printf(const char *format, ...);
+
+int	print_char(char c);
+int	print_string(const char *s);
+int	print_pointer_hexa(void *p);
+int	print_decimal_num(int n);
+int	print_unsigned_decimal(unsigned int n);
+int	print_hexa_decimal(unsigned int n, int if_uppercase);
+int	print_percent(void);
 
 #endif
