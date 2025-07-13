@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_cspdi.c                                   :+:      :+:    :+:   */
+/*   ft_print_csp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 22:43:21 by xin               #+#    #+#             */
-/*   Updated: 2025/07/12 19:32:34 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/12 22:10:11 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	print_pointer_hexa(void *p)
 	unsigned long	num;
 	int				digit_num;
 	char			*hexa;
+	int				temp;
 
 	num = (unsigned long)p;
 	digit_num = 0;
@@ -73,6 +74,11 @@ int	print_pointer_hexa(void *p)
 		digit_num ++;
 	}
 	else
-		digit_num = ft_write_hexa(num, hexa, digit_num);
+	{
+		temp = ft_write_hexa(num, hexa, 0);
+		if (temp < 0)
+			return (-1);
+		digit_num += temp;
+	}
 	return (digit_num);
 }
