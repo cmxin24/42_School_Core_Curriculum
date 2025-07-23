@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 19:52:46 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/13 20:44:36 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/23 12:12:56 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ static char	*read_to_buffer(int fd, char *temp)
 		if (content_len == -1)
 		{
 			free(buffer);
-			free(temp);
+			if (temp)
+			{
+				free(temp);
+				temp = NULL;
+			}
 			return (NULL);
 		}
 		if (content_len == 0)
@@ -54,10 +58,10 @@ static char	*read_to_buffer(int fd, char *temp)
 		if (!joined_temp)
 		{
 			free(buffer);
-			free(temp);
 			return (NULL);
 		}
-		free(temp);
+		if (temp)
+			free(temp);
 		temp = joined_temp;
 	}
 	free(buffer);
@@ -103,7 +107,10 @@ char	*get_next_line(int fd)
 		len++;
 	line = ft_substr(temp, 0, len);
 	if (!line)
+	{
+		free(temp);
 		return (NULL);
+	}
 	temp = delete_one_line(temp);
 	if (line[0] == '\0' && temp == NULL)
 	{
