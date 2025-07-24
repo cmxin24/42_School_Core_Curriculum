@@ -6,11 +6,23 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 19:33:42 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/24 16:31:35 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/24 17:14:13 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	num;
+
+	if (!s)
+		return (0);
+	num = 0;
+	while (s[num])
+		++num;
+	return (num);
+}
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -25,6 +37,48 @@ char	*ft_strchr(const char *s, int c)
 	if (*s == (char)c)
 		return ((char *)s);
 	return (NULL);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	size_t	l;
+	size_t	i;
+	char	*s2;
+
+	if (!s1)
+		return (NULL);
+	l = ft_strlen(s1);
+	s2 = (char *)malloc(l + 1);
+	if (!s2)
+		return (NULL);
+	i = 0;
+	while (i < l)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[l] = '\0';
+	return (s2);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	s_len;
+	char	*sub;
+
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (len > s_len - start)
+		len = s_len - start;
+	sub = malloc(len + 1);
+	if (!sub)
+		return (NULL);
+	memcpy(sub, s + start, len);
+	sub[len] = '\0';
+	return (sub);
 }
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
@@ -49,53 +103,4 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 			*(--d) = *(--s);
 	}
 	return (dst);
-}
-
-static t_buffer	*init_buffer(void)
-{
-	t_buffer	*buf;
-
-	buf = malloc(sizeof(t_buffer));
-	if (!buf)
-		return (NULL);
-	buf->capacity = MIN_CAPACITY;
-	buf->data = malloc(buf->capacity);
-	if (!buf->data)
-	{
-		free(buf);
-		return (NULL);
-	}
-	buf->len = 0;
-	buf->data[0] = '\0';
-	return (buf);
-}
-
-static int	expand_buffer(t_buffer *buf, size_t needed_size)
-{
-	size_t	new_capacity;
-	char	*new_data;
-
-	if (buf->len + needed_size < buf->capacity)
-		return (1);
-	new_capacity = buf->capacity * GROWTH_FACTOR;
-	while (new_capacity < buf->len + needed_size + 1)
-		new_capacity *= GROWTH_FACTOR;
-	new_data = malloc(new_capacity);
-	if (!new_data)
-		return (0);
-	if (buf->len > 0)
-		ft_memmove(new_data, buf->data, buf->len);
-	new_data[buf->len] = '\0';
-	free(buf->data);
-	buf->data = new_data;
-	buf->capacity = new_capacity;
-	return (1);
-}
-
-static void	free_buffer(t_buffer *buf)
-{
-	if (!buf)
-		return ;
-	free(buf->data);
-	free(buf);
 }

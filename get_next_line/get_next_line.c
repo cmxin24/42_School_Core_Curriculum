@@ -6,109 +6,145 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 19:52:46 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/23 19:41:18 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/24 16:42:23 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_append_buffer(char *s1, const char *s2, size_t s2_len)
+static int	append_to_buffer(t_buffer *buf, const char *data, size_t len)
 {
-	size_t	len1 = s1 ? ft_strlen(s1) : 0;
-	char	*new_str;
-
-	new_str = realloc(s1, len1 + s2_len + 1);
-	if (!new_str)
-	{
-		free(s1);
-		return (NULL);
-	}
-	memcpy(new_str + len1, s2, s2_len);
-	new_str[len1 + s2_len] = '\0';
-	return (new_str);
+	if (!expand_buffer(buf, len))
+		return (0);
+	ft_memmove(buf->data + buf->len, data, len);
+	buf->len += len;
+	buf->data[buf->len] = '\0';
+	return (1);
 }
 
-static char	*read_to_buffer(int fd, char *temp)
+static int	read_chunk_to_buffer(int fd, t_buffer *buf)
 {
-	char	*buffer;
-	ssize_t	content_len;
+	char	*temp_buffer;
+	ssize_t	bytes_read;
+	size_t	total_read;
+	size_t	i;
+	int		found_newline;
 
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (free(temp), NULL);
-	content_len = 1;
-	while ((!temp || !ft_strchr(temp, '\n')) && content_len > 0)
+	temp_buffer = malloc(BUFFER_SIZE * 8);
+	if (!temp_buffer)
+		return (-1);
+	total_read = 0;
+	found_newline = 0;
+	while (total_read < BUFFER_SIZE * 8 && !found_newline)
 	{
-		content_len = read(fd, buffer, BUFFER_SIZE);
-		if (content_len == -1)
-			return (free(buffer), free(temp), NULL);
-		if (content_len == 0)
+		bytes_read = read(fd, temp_buffer + total_read, BUFFER_SIZE);
+		if (bytes_read == -1)
+			return (free(temp_buffer), -1);
+		if (bytes_read == 0)
 			break ;
-		buffer[content_len] = '\0';
-		temp = ft_append_buffer(temp, buffer, content_len);
-		if (!temp)
-			return (free(buffer), NULL);
+		i = total_read;
+		while (i < total_read + (size_t)bytes_read && temp_buffer[i] != '\n')
+			i++;
+		if (i < total_read + (size_t)bytes_read)
+			found_newline = 1;
+		total_read += bytes_read;
 	}
-	free(buffer);
-	if (temp && temp[0] == '\0')
-		return (free(temp), NULL);
-	return (temp);
+	if (total_read > 0 && !append_to_buffer(buf, temp_buffer, total_read))
+		return (free(temp_buffer), -1);
+	free(temp_buffer);
+	if (total_read > 0)
+		return (1);
+	return (0);
 }
 
-static char	*delete_one_line(char *temp)
+static t_buffer	*read_to_buffer_optimized(int fd, t_buffer *buf)
 {
-	char	*rest_temp;
-	char	*end_of_line;
+	int	read_result;
 
-	if (!temp)
-		return (NULL);
-	end_of_line = ft_strchr(temp, '\n');
-	if (!end_of_line)
+	if (!buf)
 	{
-		free(temp);
-		return (NULL);
+		buf = init_buffer();
+		if (!buf)
+			return (NULL);
 	}
-	rest_temp = ft_strdup(end_of_line + 1);
-	free(temp);
-	return (rest_temp);
+	if (buf->len > 0 && ft_strchr(buf->data, '\n'))
+		return (buf);
+	while (1)
+	{
+		read_result = read_chunk_to_buffer(fd, buf);
+		if (read_result == -1)
+			return (free_buffer(buf), NULL);
+		if (read_result == 0)
+			break ;
+		if (ft_strchr(buf->data, '\n'))
+			break ;
+	}
+	if (buf->len == 0)
+		return (free_buffer(buf), NULL);
+	return (buf);
+}
+
+static char	*extract_line_from_buffer(t_buffer *buf)
+{
+	char	*newline_pos;
+	char	*line;
+	size_t	line_len;
+	size_t	remaining_len;
+
+	if (!buf || buf->len == 0)
+		return (NULL);
+	newline_pos = ft_strchr(buf->data, '\n');
+	if (newline_pos)
+	{
+		line_len = newline_pos - buf->data + 1;
+		line = malloc(line_len + 1);
+		if (!line)
+			return (NULL);
+		ft_memmove(line, buf->data, line_len);
+		line[line_len] = '\0';
+		remaining_len = buf->len - line_len;
+		if (remaining_len > 0)
+			ft_memmove(buf->data, buf->data + line_len, remaining_len);
+		buf->len = remaining_len;
+		buf->data[buf->len] = '\0';
+	}
+	else
+	{
+		line = malloc(buf->len + 1);
+		if (!line)
+			return (NULL);
+		ft_memmove(line, buf->data, buf->len);
+		line[buf->len] = '\0';
+		buf->len = 0;
+		buf->data[0] = '\0';
+	}
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*temp = NULL;
-	char		*line;
-	size_t		len;
+	static t_buffer	*buffer = NULL;
+	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (free(temp), temp = NULL, NULL);
-
-	temp = read_to_buffer(fd, temp);
-	if (!temp)
-		return (NULL);
-
-	if (!ft_strchr(temp, '\n'))
 	{
-		if (temp[0] == '\0')
+		if (buffer)
 		{
-			free(temp);
-			temp = NULL;
-			return (NULL);
+			free_buffer(buffer);
+			buffer = NULL;
 		}
-		line = ft_strdup(temp);
-		free(temp);
-		temp = NULL;
-		return (line);
+		return (NULL);
 	}
-
-	len = 0;
-	while (temp[len] && temp[len] != '\n')
-		len++;
-	if (temp[len] == '\n')
-		len++;
-
-	line = ft_substr(temp, 0, len);
+	buffer = read_to_buffer_optimized(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	line = extract_line_from_buffer(buffer);
 	if (!line)
-		return (free(temp), temp = NULL, NULL);
-	temp = delete_one_line(temp);
+		return (free_buffer(buffer), buffer = NULL, NULL);
+	if (buffer->len == 0)
+	{
+		free_buffer(buffer);
+		buffer = NULL;
+	}
 	return (line);
 }

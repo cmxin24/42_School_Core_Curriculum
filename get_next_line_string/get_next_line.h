@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 19:52:57 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/24 16:43:52 by meyu             ###   ########.fr       */
+/*   Updated: 2025/07/24 17:18:47 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,16 @@
 #  define BUFFER_SIZE 42
 # endif
 
-# ifndef GROWTH_FACTOR
-#  define GROWTH_FACTOR 2
-# endif
-
-# ifndef MIN_CAPACITY
-#  define MIN_CAPACITY 64
-# endif
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
 
-char			*get_next_line(int fd);
+char	*get_next_line(int fd);
 
-char			*ft_strchr(const char *s, int c);
-void			*ft_memmove(void *dst, const void *src, size_t len);
-static int		expand_buffer(t_buffer *buf, size_t needed_size);
-static t_buffer	*init_buffer(void);
-static void		free_buffer(t_buffer *buf);
-
-typedef struct s_buffer
-{
-	char	*data;
-	size_t	len;
-	size_t	capacity;
-}	t_buffer;
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	*ft_memmove(void *dst, const void *src, size_t len);
 
 #endif
