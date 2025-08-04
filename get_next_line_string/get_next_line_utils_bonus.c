@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/12 19:52:46 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/04 18:09:29 by xin              ###   ########.fr       */
+/*   Created: 2025/08/04 17:51:44 by xin               #+#    #+#             */
+/*   Updated: 2025/08/04 17:55:53 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_append_buffer(char *s1, const char *s2, size_t s2_len)
 {
@@ -92,28 +92,28 @@ static char	*delete_one_line(char *temp)
 
 char	*get_next_line(int fd)
 {
-	static char	*temp;
+	static char	*temp[OPEN_MAX];
 	char		*line;
 	size_t		len;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (free(temp), temp = NULL, NULL);
-	temp = read_to_buffer(fd, temp);
-	if (!temp)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!ft_strchr(temp, '\n'))
+	temp[fd] = read_to_buffer(fd, temp[fd]);
+	if (!temp[fd])
+		return (NULL);
+	if (!ft_strchr(temp[fd], '\n'))
 	{
-		line = ft_strdup(temp);
-		return (free(temp), temp = NULL, line);
+		line = ft_strdup(temp[fd]);
+		return (free(temp[fd]), temp[fd] = NULL, line);
 	}
 	len = 0;
-	while (temp[len] && temp[len] != '\n')
+	while (temp[fd][len] && temp[fd][len] != '\n')
 		len++;
-	if (temp[len] == '\n')
+	if (temp[fd][len] == '\n')
 		len++;
-	line = ft_substr(temp, 0, len);
+	line = ft_substr(temp[fd], 0, len);
 	if (!line)
-		return (free(temp), temp = NULL, NULL);
-	temp = delete_one_line(temp);
+		return (free(temp[fd]), temp[fd] = NULL, NULL);
+	temp[fd] = delete_one_line(temp[fd]);
 	return (line);
 }
