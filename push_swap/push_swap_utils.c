@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:29 by xin               #+#    #+#             */
-/*   Updated: 2025/08/05 12:31:25 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/08 16:30:04 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,16 @@ void	push(t_stack *s, int num)
 	s->top = new_node;
 }
 
-void	pop(s_stack *s, int *num)
+int	pop(t_stack *s, int *num)
 {
-	if
+	t_node	*temp;
+
+	if (isEmpty(s))
+		return (0);
+	temp = s->top;
+	*num = temp->data;
+	s->top = temp->next;
+	free(temp);
+	return (1);
 }
+
