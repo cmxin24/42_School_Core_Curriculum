@@ -6,96 +6,82 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 19:33:42 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/24 16:31:35 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/08 15:34:42 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s && s[len])
+		len++;
+	return (len);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	size_t	l;
+	size_t	i;
+	char	*s2;
+
+	l = 0;
+	while (s1[l])
+		l++;
+	s2 = (char *)malloc (l + 1);
+	if (!s2)
+		return (NULL);
+	i = 0;
+	while (i <= l)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	return (s2);
+}
+
 char	*ft_strchr(const char *s, int c)
 {
-	if (!s)
-		return (NULL);
+	char	*r;
+
+	r = NULL;
 	while (*s)
 	{
 		if (*s == (char)c)
-			return ((char *)s);
+			r = (char *)s;
 		s++;
 	}
 	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
+		r = (char *)s;
+	return (r);
 }
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*str;
+	size_t	index;
 
-	d = (unsigned char *)dst;
-	s = (const unsigned char *)src;
-	if (d == s || len == 0)
-		return (dst);
-	if (d < s)
-	{
-		while (len--)
-			*d++ = *s++;
-	}
-	else
-	{
-		d += len;
-		s += len;
-		while (len--)
-			*(--d) = *(--s);
-	}
-	return (dst);
-}
-
-static t_buffer	*init_buffer(void)
-{
-	t_buffer	*buf;
-
-	buf = malloc(sizeof(t_buffer));
-	if (!buf)
+	if (!s1 || !s2)
 		return (NULL);
-	buf->capacity = MIN_CAPACITY;
-	buf->data = malloc(buf->capacity);
-	if (!buf->data)
-	{
-		free(buf);
+	s1_len = 0;
+	s2_len = 0;
+	while (s1[s1_len])
+		s1_len++;
+	while (s2[s2_len])
+		s2_len++;
+	index = 0;
+	str = (char *)malloc(s1_len + s2_len + 1);
+	if (!str)
 		return (NULL);
-	}
-	buf->len = 0;
-	buf->data[0] = '\0';
-	return (buf);
-}
-
-static int	expand_buffer(t_buffer *buf, size_t needed_size)
-{
-	size_t	new_capacity;
-	char	*new_data;
-
-	if (buf->len + needed_size < buf->capacity)
-		return (1);
-	new_capacity = buf->capacity * GROWTH_FACTOR;
-	while (new_capacity < buf->len + needed_size + 1)
-		new_capacity *= GROWTH_FACTOR;
-	new_data = malloc(new_capacity);
-	if (!new_data)
-		return (0);
-	if (buf->len > 0)
-		ft_memmove(new_data, buf->data, buf->len);
-	new_data[buf->len] = '\0';
-	free(buf->data);
-	buf->data = new_data;
-	buf->capacity = new_capacity;
-	return (1);
-}
-
-static void	free_buffer(t_buffer *buf)
-{
-	if (!buf)
-		return ;
-	free(buf->data);
-	free(buf);
+	while (*s1)
+		str[index++] = *s1++;
+	while (*s2)
+		str[index++] = *s2++;
+	str[index] = '\0';
+	return (str);
 }
