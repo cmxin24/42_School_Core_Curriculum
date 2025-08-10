@@ -6,14 +6,15 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 23:50:03 by xin               #+#    #+#             */
-/*   Updated: 2025/08/09 11:09:24 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/10 10:29:05 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_push_swap(t_node *a)
+t_node	*ft_push_swap(t_node *a)
 {
 
 
 }
+

@@ -2,4 +2,3 @@ a.out
 .DS_Store
 *.o
 .vscode
-main.c
