@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 08:57:00 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:29:03 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/10 10:43:13 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_number(char *s)
 	return (1);
 }
 
-int	ft_check_duplicates(int *num_array, int lenth)
+void	ft_check_duplicates(int *num_array, int lenth)
 {
 	size_t	i;
 	size_t	j;

@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:28:37 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:32:29 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/10 10:42:40 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_rrr(t_stack *a, t_stack *b);
 void	ft_print_error(void);
 int		ft_atol(char *s);
 int		is_number(char *s);
-int		ft_check_duplicates(int *num_array, int lenth);
+void	ft_check_duplicates(int *num_array, int lenth);
 int		*ft_argv_check(int argc, char *argv[]);
 
 #endif
