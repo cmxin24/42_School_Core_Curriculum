@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils_3.c                                :+:      :+:    :+:   */
+/*   push_swap_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 08:57:00 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:43:13 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/12 19:47:07 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	ft_print_error(void)
 {
@@ -38,7 +38,7 @@ int	ft_atol(char *s)
 		num = num * 10 + (s[index] - '0');
 		index += 1;
 	}
-	return (num * sign);
+	return ((int)(num * sign));
 }
 
 int	is_number(char *s)
@@ -61,8 +61,8 @@ int	is_number(char *s)
 
 void	ft_check_duplicates(int *num_array, int lenth)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < lenth - 1)
@@ -78,10 +78,10 @@ void	ft_check_duplicates(int *num_array, int lenth)
 	}
 }
 
-int	*ft_argv_check(int argc, char *argv[])
+int	*ft_argv_check(int argc, char **argv)
 {
 	int		*num_array;
-	size_t	i;
+	int		i;
 	long	num;
 
 	if (argc == 1)

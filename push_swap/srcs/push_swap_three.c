@@ -6,11 +6,11 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 08:50:01 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 11:40:50 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/12 19:13:35 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 bool	ft_sort_three(t_stack *a)
 {

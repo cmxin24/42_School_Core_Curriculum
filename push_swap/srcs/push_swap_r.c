@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_r.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 09:34:57 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 09:53:07 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/12 19:45:03 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_rb(t_stack *b)
 
 void	ft_rr(t_stack *a, t_stack *b)
 {
-	if (!a->top || !a->top->next || b->top || !b->top->next)
+	if (!a->top || !a->top->next || !b->top || !b->top->next)
 		return ;
 	ft_rotate(a);
 	ft_rotate(b);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_p.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 09:26:06 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:29:09 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/12 19:13:34 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ bool	ft_push_to(t_stack *dest, t_stack *src)
 		return (false);
 	temp = src->top;
 	src->top = temp->next;
+	src->size--;
 	temp->next = dest->top;
 	dest->top = temp;
+	dest->size++;
 	return (true);
 }
 
