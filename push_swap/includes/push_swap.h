@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:28:37 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:42:40 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/10 12:44:51 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_stack
 void	ft_push(t_stack *s, int num);
 int		ft_pop(t_stack *s, int *num);
 bool	ft_swap(t_stack *a);
-void	sa(t_stack *a);
-void	sb(t_stack *b);
-void	ss(t_stack *a, t_stack *b);
+void	ft_sa(t_stack *a);
+void	ft_sb(t_stack *b);
+void	ft_ss(t_stack *a, t_stack *b);
 bool	ft_push_to(t_stack *dest, t_stack *src);
 void	ft_pa(t_stack *a, t_stack *b);
 void	ft_pb(t_stack *a, t_stack *b);
@@ -51,5 +51,8 @@ int		ft_atol(char *s);
 int		is_number(char *s);
 void	ft_check_duplicates(int *num_array, int lenth);
 int		*ft_argv_check(int argc, char *argv[]);
+void	ft_array_to_stack(t_stack *s, int *num_array, size_t num_size);
+bool	ft_sort_three(t_stack *a);
+bool	*ft_push_swap(t_stack *a, int num_size);
 
 #endif

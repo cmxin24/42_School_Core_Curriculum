@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   push_swap_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/04 23:50:03 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:43:41 by xin              ###   ########.fr       */
+/*   Created: 2025/08/09 11:07:01 by xin               #+#    #+#             */
+/*   Updated: 2025/08/10 12:28:07 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*ft_push_swap(t_node *a)
+void	ft_array_to_stack(t_stack *s, int *num_array, size_t num_size)
 {
-
-	return (a);
+	s->top = NULL;
+	while (num_size > 0)
+	{
+		num_size --;
+		ft_push(s, num_array[num_size]);
+	}
 }

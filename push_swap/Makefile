@@ -1,17 +1,20 @@
 NAME	=	ft_push_swap.a
 
-CFLAGS	= 	-Wall -Werror -Wextra
+CFLAGS	= 	-Wall -Werror -Wextra -Iincludes
 
-SRC		=	push_swap.c 		\
-			push_swap_utils.c 	\
-			push_swap_utils_2.c
+SRC		=	$(wildcard srcs/*.c)
 
 OBJ		=	$(SRC:.c=.o)
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
-	ar rcs $(NAME) $(OBJ)
+
+$(NAME): $(OBJ)
+	ar rcs $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean: 
 	rm -f $(OBJ)
