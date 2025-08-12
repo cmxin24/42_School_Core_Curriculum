@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:28:37 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:42:40 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/12 13:46:55 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 typedef struct s_node
 {
 	int				data;
+	int				rank;
 	struct s_node	*next;
 }	t_node;
 typedef struct s_stack
 {
 	t_node	*top;
+	int		size;
 }	t_stack;
 
 void	ft_push(t_stack *s, int num);
