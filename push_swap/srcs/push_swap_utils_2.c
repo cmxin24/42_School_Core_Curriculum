@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_large.c                                  :+:      :+:    :+:   */
+/*   push_swap_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 12:25:59 by xin               #+#    #+#             */
-/*   Updated: 2025/08/12 19:45:25 by meyu             ###   ########.fr       */
+/*   Created: 2025/08/12 23:00:19 by xin               #+#    #+#             */
+/*   Updated: 2025/08/13 02:20:18 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void	ft_free_stack(t_stack *s)
+{
+	t_node	*temp;
+
+	while (s->top)
+	{
+		temp = s->top;
+		s->top = s->top->next;
+		free(temp);
+	}
+	s->size = 0;
+}
 
 int	ft_find_rank(int *num_arry, size_t num_size, int num)
 {
@@ -52,34 +65,40 @@ void	ft_set_rank(t_stack *a, size_t num_size, int *num_array)
 		temp->rank = ft_find_rank(num_array, num_size, temp->data);
 		temp = temp->next;
 	}
-	free(num_array);
 }
 
-bool	ft_sort_chunk(t_stack *a, t_stack *b, int chunk_num)
+void	ft_update_chunk(int *start, int *end, int chunk_size, int *pushed)
 {
-	int		size;
+	*start = *end;
+	*end += chunk_size;
+	*pushed = 0;
+}
+
+void	ft_push_chunks(t_stack *a, t_stack *b, int chunk_num, int total_size)
+{
+	int		start;
+	int		end;
+	int		pushed;
 	int		chunk_size;
-	int		push_rank;
 	t_node	*top;
 
-	size = a->size;
-	chunk_size = size / chunk_num;
-	push_rank = 0;
+	start = 0;
+	chunk_size = total_size / chunk_num + 1;
+	end = chunk_size;
+	pushed = 0;
 	while (a->size > 0)
 	{
 		top = a->top;
-		if (top->rank >= push_rank && top->rank < push_rank + chunk_size)
+		if (top->rank >= start && top->rank < end)
 		{
 			ft_pb(a, b);
-			push_rank++;
+			pushed++;
+			if (b->top->rank < start + (chunk_size / 2))
+				ft_rb(b);
 		}
 		else
 			ft_ra(a);
+		if (pushed >= chunk_size)
+			ft_update_chunk(&start, &end, chunk_size, &pushed);
 	}
-	while (b->top)
-	{
-		ft_max_to_top(b, size);
-		ft_pa(a, b);
-	}
-	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils_0.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:10:29 by xin               #+#    #+#             */
-/*   Updated: 2025/08/12 19:49:07 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/13 01:53:23 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ bool	ft_array_to_stack(t_stack *s, int *num_array, size_t num_size)
 		if (!ft_push(s, num_array[i]))
 			return (false);
 	}
-	s->size = num_size;
 	return (true);
 }
 
@@ -102,20 +101,3 @@ void	quicksort(int *num_array, int left, int right)
 	if (i < right)
 		quicksort(num_array, i, right);
 }
-
-/* #include <stdio.h>
-
-int main()
-{
-    int arr[] = {9, 3, 7, 1, 6, 5, 8, 2, 4};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    quicksort(arr, 0, n - 1);
-
-    for (int i = 0; i < n; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
-
-    return 0;
-}
- */

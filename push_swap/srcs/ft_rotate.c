@@ -1,51 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_rr.c                                     :+:      :+:    :+:   */
+/*   push_swap_r.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/10 09:53:29 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 10:28:59 by xin              ###   ########.fr       */
+/*   Created: 2025/08/10 09:34:57 by xin               #+#    #+#             */
+/*   Updated: 2025/08/13 01:03:08 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
-bool	ft_reverse_rotate(t_stack *s)
+bool	ft_rotate(t_stack *s)
 {
-	t_node	*befor_last;
+	t_node	*first;
 	t_node	*last;
+	int		rank;
 
 	if (!s->top || !s->top->next)
 		return (false);
-	befor_last = s->top;
-	while (befor_last->next->next)
-		befor_last = befor_last->next;
-	last = befor_last->next;
-	befor_last->next = NULL;
-	last->next = s->top;
-	s->top = last;
+	first = s->top;
+	s->top = first->next;
+	first->next = NULL;
+	rank = first->rank;
+	last = s->top;
+	while (last->next)
+		last = last->next;
+	last->next = first;
+	first->rank = rank;
 	return (true);
 }
 
-void	ft_rra(t_stack *a)
+void	ft_ra(t_stack *a)
 {
-	if (ft_reverse_rotate(a))
-		write(1, "rra\n", 4);
+	if (ft_rotate(a))
+		write(1, "ra\n", 3);
 }
 
-void	ft_rrb(t_stack *b)
+void	ft_rb(t_stack *b)
 {
-	if (ft_reverse_rotate(b))
-		write(1, "rrb\n", 4);
+	if (ft_rotate(b))
+		write(1, "rb\n", 3);
 }
 
-void	ft_rrr(t_stack *a, t_stack *b)
+void	ft_rr(t_stack *a, t_stack *b)
 {
 	if (!a->top || !a->top->next || !b->top || !b->top->next)
 		return ;
-	ft_reverse_rotate(a);
-	ft_reverse_rotate(b);
-	write(1, "rrr\n", 4);
+	ft_rotate(a);
+	ft_rotate(b);
+	write(1, "rr\n", 3);
 }

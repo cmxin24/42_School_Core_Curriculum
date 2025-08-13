@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_s.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 09:17:49 by xin               #+#    #+#             */
-/*   Updated: 2025/08/10 11:08:10 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/13 00:57:20 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 bool	ft_swap(t_stack *s)
 {
 	t_node	*first;
 	t_node	*second;
 	int		num;
+	int		rank;
 
 	if (!s->top || !s->top->next)
 		return (false);
@@ -25,6 +26,9 @@ bool	ft_swap(t_stack *s)
 	num = first->data;
 	first->data = second->data;
 	second->data = num;
+	rank = first->rank;
+	first->rank = second->rank;
+	second->rank = rank;
 	return (true);
 }
 
