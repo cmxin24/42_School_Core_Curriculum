@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 23:00:19 by xin               #+#    #+#             */
-/*   Updated: 2025/08/14 15:15:27 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/14 18:37:04 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,33 +72,4 @@ void	ft_update_chunk(int *start, int *end, int chunk_size, int *pushed)
 	*start = *end;
 	*end += chunk_size;
 	*pushed = 0;
-}
-
-void	ft_push_chunks(t_stack *a, t_stack *b, int chunk_num, int total_size)
-{
-	int		start;
-	int		end;
-	int		pushed;
-	int		chunk_size;
-	t_node	*top;
-
-	start = 0;
-	chunk_size = total_size / chunk_num + 1;
-	end = chunk_size;
-	pushed = 0;
-	while (a->size > 0)
-	{
-		top = a->top;
-		if (top->rank >= start && top->rank < end)
-		{
-			ft_pb(a, b);
-			pushed++;
-			if (b->top->rank < (start + end) / 2)
-				ft_rb(b);
-		}
-		else
-			ft_ra(a);
-		if (pushed >= chunk_size)
-			ft_update_chunk(&start, &end, chunk_size, &pushed);
-	}
 }

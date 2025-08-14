@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:28:37 by xin               #+#    #+#             */
-/*   Updated: 2025/08/13 13:29:03 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/14 19:01:01 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ bool	ft_sort_three(t_stack *a);
 int		ft_find_min(t_stack *a);
 void	ft_min_to_top(t_stack *a, size_t num_size);
 bool	ft_sort_small(t_stack *a, t_stack *b, size_t num_size);
+bool	ft_is_stack_sorted(t_stack *a);
 bool	ft_push_swap(t_stack *a, t_stack *b, int num_size);
 void	quicksort(int *num_array, int left, int right);
 void	ft_set_rank(t_stack *a, size_t num_size, int *num_array);
 void	ft_push_chunks(t_stack *a, t_stack *b, int chunk_num, int start);
 bool	ft_sort_chunk(t_stack *a, t_stack *b, int chunk_num);
 void	ft_free_stack(t_stack *s);
+void	ft_update_chunk(int *start, int *end, int chunk_size, int *pushed);
 
 #endif
