@@ -1,16 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_four.c                                   :+:      :+:    :+:   */
+/*   push_swap_small.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 20:22:48 by xin               #+#    #+#             */
-/*   Updated: 2025/08/13 02:16:31 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/13 13:29:36 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+bool	ft_sort_three(t_stack *a)
+{
+	int	num1;
+	int	num2;
+	int	num3;
+
+	num1 = a->top->data;
+	num2 = a->top->next->data;
+	num3 = a->top->next->next->data;
+	if (num1 < num2 && num2 < num3)
+		return (true);
+	if (num1 < num3 && num3 < num2)
+		return (ft_rra(a), ft_sa(a), true);
+	if (num2 < num1 && num1 < num3)
+		return (ft_sa(a), true);
+	if (num1 < num2 && num3 < num1)
+		return (ft_rra(a), true);
+	if (num1 > num3 && num2 < num3)
+		return (ft_ra(a), true);
+	if (num1 > num2 && num2 > num3)
+		return (ft_sa(a), ft_rra(a), true);
+	return (false);
+}
 
 int	ft_find_min(t_stack *a)
 {
@@ -55,20 +79,19 @@ void	ft_min_to_top(t_stack *a, size_t num_size)
 	}
 }
 
-bool	ft_sort_four(t_stack *a, t_stack *b)
+bool	ft_sort_small(t_stack *a, t_stack *b, size_t num_size)
 {
-	ft_min_to_top(a, 4);
-	ft_pb(a, b);
-	ft_sort_three(a);
-	ft_pa(a, b);
-	return (true);
-}
+	size_t	push_count;
 
-bool	ft_sort_five(t_stack *a, t_stack *b)
-{
-	ft_min_to_top(a, 5);
-	ft_pb(a, b);
-	ft_sort_four(a, b);
-	ft_pa(a, b);
+	push_count = num_size - 3;
+	while (push_count > 0)
+	{
+		ft_min_to_top(a, a->size);
+		ft_pb(a, b);
+		push_count--;
+	}
+	ft_sort_three(a);
+	while (b->size > 0)
+		ft_pa(a, b);
 	return (true);
 }

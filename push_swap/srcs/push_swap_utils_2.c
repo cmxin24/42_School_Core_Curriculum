@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 23:00:19 by xin               #+#    #+#             */
-/*   Updated: 2025/08/13 02:20:18 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/14 15:15:27 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_push_chunks(t_stack *a, t_stack *b, int chunk_num, int total_size)
 		{
 			ft_pb(a, b);
 			pushed++;
-			if (b->top->rank < start + (chunk_size / 2))
+			if (b->top->rank < (start + end) / 2)
 				ft_rb(b);
 		}
 		else

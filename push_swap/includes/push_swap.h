@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:28:37 by xin               #+#    #+#             */
-/*   Updated: 2025/08/13 13:05:58 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/13 13:29:03 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ bool	ft_array_to_stack(t_stack *s, int *num_array, size_t num_size);
 bool	ft_sort_three(t_stack *a);
 int		ft_find_min(t_stack *a);
 void	ft_min_to_top(t_stack *a, size_t num_size);
-bool	ft_sort_four(t_stack *a, t_stack *b);
-bool	ft_sort_five(t_stack *a, t_stack *b);
+bool	ft_sort_small(t_stack *a, t_stack *b, size_t num_size);
 bool	ft_push_swap(t_stack *a, t_stack *b, int num_size);
 void	quicksort(int *num_array, int left, int right);
 void	ft_set_rank(t_stack *a, size_t num_size, int *num_array);
