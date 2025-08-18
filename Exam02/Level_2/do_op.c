@@ -24,5 +24,6 @@ int	main(int argc, int **argv)
 	}
 	int	num_1 = atoi(argv[1][1]);
 	int	num_2 = atoi(argv[1][3]);
+	
 	return (0);
 }
