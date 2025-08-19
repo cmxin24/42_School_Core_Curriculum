@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 23:00:19 by xin               #+#    #+#             */
-/*   Updated: 2025/08/14 18:37:04 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/19 10:55:14 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,4 @@ void	ft_set_rank(t_stack *a, size_t num_size, int *num_array)
 		temp->rank = ft_find_rank(num_array, num_size, temp->data);
 		temp = temp->next;
 	}
-}
-
-void	ft_update_chunk(int *start, int *end, int chunk_size, int *pushed)
-{
-	*start = *end;
-	*end += chunk_size;
-	*pushed = 0;
 }
