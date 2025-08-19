@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:04:29 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/19 19:09:25 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/19 19:25:15 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	ft_get_message(int signum, siginfo_t *info, void *context)
 			write (1, &c, 1);
 		bits = 0;
 		c = 0;
+		usleep(100);
 		kill(client_pid, SIGUSR2);
 	}
 }
