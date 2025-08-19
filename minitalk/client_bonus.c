@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 13:50:52 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/19 19:32:35 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/19 19:45:48 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_send_message(pid_t	pid, char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(1000);
+		usleep(300);
 	}
 	while (!g_ack)
 		pause();
