@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 09:24:50 by xin               #+#    #+#             */
-/*   Updated: 2025/07/11 17:51:58 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/21 12:42:51 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ static int	ft_generate_array(char **array, char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
 	char	**new_array;
 
 	if (!s)
 		return (NULL);
-	i = 0;
 	new_array = (char **)malloc ((ft_get_count(s, c) + 1) * sizeof(char *));
 	if (!new_array)
 		return (NULL);

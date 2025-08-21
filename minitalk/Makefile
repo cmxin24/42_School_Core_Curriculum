@@ -3,8 +3,8 @@ NAME_2 = server
 LIB = libft
 CFLAGS = -Wall -Wextra -Werror
 
-SRC_1 = client_bonus.c
-SRC_2 = server_bonus.c
+SRC_1 = client.c
+SRC_2 = server.c
 
 OBJ_1 = $(SRC_1:.c=.o)
 OBJ_2 = $(SRC_2:.c=.o)
