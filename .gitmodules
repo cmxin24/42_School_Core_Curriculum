@@ -1,0 +1,6 @@
+[submodule "so_lone_MLX42"]
+	path = so_lone_MLX42
+	url = https://github.com/codam-coding-college/MLX42
+[submodule "so_lone/MLX42"]
+	path = so_lone/MLX42
+	url = https://github.com/codam-coding-college/MLX42
