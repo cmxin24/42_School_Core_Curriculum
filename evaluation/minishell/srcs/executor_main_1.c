@@ -1,0 +1,180 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_main_1.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vpushkar <vpushkar@student.42heilbronn.de> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/30 12:25:25 by vpushkar          #+#    #+#             */
+/*   Updated: 2025/08/15 17:56:13 by vpushkar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+/**
+ * @brief Checks if the given command name matches a built-in shell command.
+ *
+ * This function compares the input string to known built-in command names
+ * such as "cd", "export", "unset", "exit", "echo", "env", "pwd", and ":".
+ *
+ * @param command The command name to check.
+ * @return true if the command is built-in, false otherwise.
+ */
+bool	is_builtin_command(const char *command)
+{
+	return (ft_strncmp(command, "cd", 3) == 0
+		|| ft_strncmp(command, "export", 7) == 0
+		|| ft_strncmp(command, "unset", 6) == 0
+		|| ft_strncmp(command, "exit", 5) == 0
+		|| ft_strncmp(command, "echo", 5) == 0
+		|| ft_strncmp(command, "env", 4) == 0
+		|| ft_strncmp(command, "pwd", 4) == 0
+		|| ft_strncmp(command, ":", 2) == 0);
+}
+
+/**
+ * @brief Executes an external (non-built-in) command in a child process.
+ *
+ * Forks a new process, sets up signal handling, and runs the command.
+ * Waits for the child to finish and returns its exit status.
+ *
+ * @param command The input command structure with arguments.
+ * @param shell Pointer to the shell structure.
+ * @return The exit status of the executed command.
+ */
+int	execute_external_command(t_input *command, t_shell *shell)
+{
+	pid_t	pid;
+	int		status;
+	int		last_status;
+
+	last_status = 0;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	pid = fork();
+	if (pid == 0)
+		execute_external_child(command, shell);
+	else if (pid < 0)
+	{
+		perror("fork");
+		last_status = 1;
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			last_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			last_status = 128 + WTERMSIG(status);
+	}
+	return (last_status);
+}
+
+/**
+ * @brief Executes a built-in shell command in the current process.
+ *
+ * Handles built-in commands: cd, export, unset, exit, echo, env, pwd, and :.
+ * For 'exit', sets shell->should_exit and returns the correct exit status
+ * using last_status_assign. For other commands, calls the corresponding
+ * handler. Returns the exit status for the command.
+ *
+ * @param command The input command structure with arguments.
+ * @param shell Pointer to the shell structure.
+ * @return The exit status of the built-in command.
+ */
+int	execute_builtin_command(t_input *command, t_shell *shell)
+{
+	shell->last_exit_status = 0;
+	if (ft_strncmp(command->args[0], "cd", 3) == 0)
+		do_cd(shell, command->args, &shell->env);
+	else if (ft_strncmp(command->args[0], "export", 7) == 0)
+		do_export(shell, command->args, &shell->env);
+	else if (ft_strncmp(command->args[0], "unset", 6) == 0)
+		do_unset(command->args, &shell->env);
+	else if (ft_strncmp(command->args[0], "exit", 5) == 0)
+	{
+		shell->should_exit = 1;
+		shell->last_exit_status = last_status_assign(command, shell);
+		return (shell->last_exit_status);
+	}
+	else if (ft_strncmp(command->args[0], "echo", 5) == 0)
+		do_echo(command->args);
+	else if (ft_strncmp(command->args[0], "env", 4) == 0)
+		do_env(shell->env, command->args);
+	else if (ft_strncmp(command->args[0], "pwd", 4) == 0)
+		do_pwd();
+	else if (ft_strncmp(command->args[0], ":", 2) == 0)
+		shell->last_exit_status = 0;
+	return (shell->last_exit_status);
+}
+
+/**
+ * @brief Executes a command node from the AST.
+ *
+ * Applies input/output redirections first. If redirections fail, the
+ * command returns status 1. Otherwise, executes the command as a
+ * built-in if recognized, or as an external program.
+ *
+ * @param node Pointer to the AST command node to execute.
+ * @param shell Pointer to the shell structure.
+ *
+ * @return The exit status of the executed command.
+ */
+int	execute_command_node(t_ast_node *node, t_shell *shell)
+{
+	int		last_status;
+
+	last_status = 0;
+	if (!apply_redirections(node->command))
+		last_status = 1;
+	else if (node->command->args && node->command->args[0])
+	{
+		if (is_builtin_command(node->command->args[0]))
+			last_status = execute_builtin_command(node->command, shell);
+		else
+			last_status = execute_external_command(node->command, shell);
+	}
+	return (last_status);
+}
+
+/**
+ * @brief Executes an AST node based on its type.
+ *
+ * Handles different node types: command, pipe, AND, OR, and subshell.
+ * Saves and restores the original stdin and stdout file descriptors.
+ * Updates the shell's last_exit_status with the result of execution.
+ *
+ * @param node Pointer to the AST node to execute.
+ * @param shell Pointer to the shell structure.
+ *
+ * @return The exit status of the executed node.
+ */
+int	execute_node(t_ast_node *node, t_shell *shell)
+{
+	int	last_status;
+	int	original_stdin;
+	int	original_stdout;
+
+	last_status = 0;
+	original_stdin = dup(STDIN_FILENO);
+	original_stdout = dup(STDOUT_FILENO);
+	if (!node)
+		return (1);
+	if (node->type == NODE_CMD)
+		last_status = execute_command_node(node, shell);
+	else if (node->type == NODE_PIPE)
+		last_status = execute_pipe_node(node, shell);
+	else if (node->type == NODE_AND)
+		last_status = execute_and_node(node, shell);
+	else if (node->type == NODE_OR)
+		last_status = execute_or_node(node, shell);
+	else if (node->type == NODE_SUBSHELL)
+		last_status = execute_subshell_node(node, shell);
+	dup2(original_stdin, STDIN_FILENO);
+	dup2(original_stdout, STDOUT_FILENO);
+	close(original_stdin);
+	close(original_stdout);
+	shell->last_exit_status = last_status;
+	return (last_status);
+}
