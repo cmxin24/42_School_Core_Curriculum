@@ -6,11 +6,11 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:29:38 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/26 20:04:31 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/26 20:25:39 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long.h"
 
 typedef struct s_data
 {
@@ -29,18 +29,20 @@ static void	draw_checker(mlx_image_t *img)
 	uint32_t	y;
 	bool		on;
 
-	x = 0;
 	y = 0;
-	while (++y < img->height)
+	while (y < img->height - 8)
 	{
-		while (++x < img->width)
+		x = 0;
+		while (x < img->width - 8)
 		{
-			on = ((x / 8) | (y / 8) & 1);
+			on = ((x / 8) | (y / 8)) & 1;
 			if (on)
 				mlx_put_pixel(img, x, y, 0xFFFFFFFF);
 			else
 				mlx_put_pixel(img, x, y, 0x000000FF);
+			x++;
 		}
+		y++;
 	}
 }
 
@@ -66,14 +68,40 @@ static void	loop_hook(void *param)
 		dx = -2;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT) || mlx_is_key_down(mlx, MLX_KEY_D))
 		dx = +2;
-	if (mlx_is_key_down(mlx, MLX_KEY_UP)	|| mlx_is_key_down(mlx, MLX_KEY_W))
+	if (mlx_is_key_down(mlx, MLX_KEY_UP) || mlx_is_key_down(mlx, MLX_KEY_W))
 		dy = -2;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN)	|| mlx_is_key_down(mlx, MLX_KEY_S))
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) || mlx_is_key_down(mlx, MLX_KEY_S))
 		dy = +2;
 	img->instances[0].x += dx;
 	img->instances[0].y += dy;
 }
 
+int	main(void)
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_data		data;
 
+	mlx = mlx_init(WIDTH, HEIGHT, "MLX42 - test_1", true);
+	if (!mlx)
+		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
+	img = mlx_new_image(mlx, 128, 128);
+	if (!img)
+		return (puts(mlx_strerror(mlx_errno)), mlx_terminate(mlx), EXIT_FAILURE);
+	draw_checker(img);
+	if (mlx_image_to_window(mlx, img, 50, 50) < 0)
+	{
+		puts(mlx_strerror(mlx_errno));
+		mlx_delete_image(mlx, img);
+		mlx_terminate(mlx);
+		return (EXIT_FAILURE);
+	}
+	data.mlx = mlx;
+	data.img = img;
+	mlx_loop_hook(mlx, loop_hook, &data);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
+}
 
 

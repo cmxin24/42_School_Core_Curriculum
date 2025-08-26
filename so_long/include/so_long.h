@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:29:07 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/26 18:31:11 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/26 20:17:10 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 
 # include <stdlib.h>
 # include <stdio.h>
-# include <lib/MLX42/include/MLX42/MLX42.h>
+# include "../lib/MLX42/include/MLX42/MLX42.h"
 
 #endif
