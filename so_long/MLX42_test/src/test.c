@@ -1,5 +1,3 @@
-// Written by Bruh
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>

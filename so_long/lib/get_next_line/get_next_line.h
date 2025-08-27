@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 18:29:07 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/27 19:14:44 by meyu             ###   ########.fr       */
+/*   Created: 2025/07/12 19:52:57 by meyu              #+#    #+#             */
+/*   Updated: 2025/08/08 15:34:51 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# define WIDTH  640
-# define HEIGHT 480
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
+# include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
-# include <stdbool.h>
 # include <string.h>
-# include "../lib/MLX42/include/MLX42/MLX42.h"
-# include "../lib/get_next_line/get_next_line.h"
 
-typedef struct s_game
-{
-	mlx_t		*mlx;
-	mlx_image_t	*player;
-	char		**map;
-	int			width;
-	int			height;
-	int			collect_set;
-	int			collect_count;
-	int			step_num;
-}	t_game;
+char	*get_next_line(int fd);
+
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
