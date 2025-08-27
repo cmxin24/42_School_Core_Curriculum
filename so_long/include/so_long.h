@@ -6,15 +6,16 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:29:07 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/27 19:14:44 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/27 19:28:51 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define WIDTH  640
-# define HEIGHT 480
+# define WIDTH  1280
+# define HEIGHT 640
+# define STEP	32
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -27,7 +28,9 @@
 typedef struct s_game
 {
 	mlx_t		*mlx;
-	mlx_image_t	*player;
+	mlx_image_t	*player_right;
+	mlx_image_t	*player_left;
+	mlx_image_t	*current;
 	char		**map;
 	int			width;
 	int			height;
