@@ -1,11 +1,14 @@
 NAME	:= Game
 CFLAGS	:= -O3 -ffast-math -Wextra -Wall -Werror -Wunreachable-code
 LIBMLX	:= ./lib/MLX42
+MYLIB	:= lib
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS	:= $(shell find ./src -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
+
+MYLIB_PATH = ./$(MYLIB)
 
 all: libmlx $(NAME)
 
@@ -15,15 +18,20 @@ libmlx:
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(OBJS) $(MYLIB_PATH)/$(MYLIB).a
+	@$(CC) $(OBJS) $(MYLIB_PATH)/libft.a $(LIBS) -o $(NAME)
+
+$(MYLIB_PATH)/$(MYLIB).a:
+	make -C $(MYLIB_PATH)
 
 clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(LIBMLX)/build
+	make -C $(MYLIB_PATH) clean
 
 fclean: clean
 	@rm -rf $(NAME)
+	make -C $(MYLIB_PATH) fclean
 
 re: clean all
 

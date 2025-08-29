@@ -1,63 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/13 19:33:42 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/08 15:34:42 by meyu             ###   ########.fr       */
+/*   Created: 2025/07/10 20:37:56 by xin               #+#    #+#             */
+/*   Updated: 2025/08/08 15:47:03 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s && s[len])
-		len++;
-	return (len);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	size_t	l;
-	size_t	i;
-	char	*s2;
-
-	l = 0;
-	while (s1[l])
-		l++;
-	s2 = (char *)malloc (l + 1);
-	if (!s2)
-		return (NULL);
-	i = 0;
-	while (i <= l)
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	return (s2);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	char	*r;
-
-	r = NULL;
-	while (*s)
-	{
-		if (*s == (char)c)
-			r = (char *)s;
-		s++;
-	}
-	if (*s == (char)c)
-		r = (char *)s;
-	return (r);
-}
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

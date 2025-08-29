@@ -6,11 +6,12 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 19:52:46 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/27 17:42:00 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/29 15:54:32 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
+#include "../includes/libft.h"
 
 static void	delete_one_line(char *temp)
 {
