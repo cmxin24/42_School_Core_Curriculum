@@ -6,37 +6,54 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:35:19 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/28 01:01:04 by xin              ###   ########.fr       */
+/*   Updated: 2025/08/29 12:38:26 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-mlx_image_t	*draw_background(mlx_t *mlx, mlx_texture_t *tex_bg)
-{
-	mlx_image_t		*background;
-	int				x;
-	int				y;
 
-	background = mlx_texture_to_image(mlx, tex_bg);
-	if (!background)
-	{
-		puts("Failed to convert background texture");
-		mlx_delete_texture(tex_bg);
-		return (NULL);
-	}
+
+void	*draw_background(t_game *game)
+{
+	int	x;
+	int	y;
+
 	y = 0;
-	while (y < HEIGHT)
+	while (y < game->height * TILE)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < game->width)
 		{
-			mlx_image_to_window(mlx, background, x, y);
+			mlx_image_to_window(game->mlx, game->background, x, y);
 			x += TILE;
 		}
 		y += TILE;
 	}
-	return (background);
+}
+
+void	draw_map(t_game *game)
+{
+	int		x;
+	int		y;
+	char	character;
+
+	y = 0;
+	while (y < game->height * TILE)
+	{
+		x = 0;
+		while (x < game->width)
+		{
+			character = game->map[y][x];
+			if (character == '1')
+				mlx_image_to_window(game->mlx, game->wall, x * TILE, y * TILE);
+			else if (character == 'C')
+				mlx_image_to_window(game->mlx, game->coin, x * TILE, y * TILE);
+			else if (character == 'E')
+				mlx_image_to_window(game->mlx, game->exit, x * TILE, y * TILE);
+		}
+		y += TILE;
+	}
 }
 
 static void	key_hook(mlx_key_data_t keydata, void *param)
@@ -79,6 +96,37 @@ static void	key_hook(mlx_key_data_t keydata, void *param)
 		game->current->instances[0].x += dx;
 		game->current->instances[0].y += dy;
 	}
+}
+
+int	ft_game_init(t_game *game, char *map_path)
+{
+	game->map = load_map(map_path, &game->width, &game->height);
+	if (!game->map)
+		return (EXIT_FAILURE);
+	game->mlx = mlx_init(game->width, game->height, "So_long!", true);
+	if (!game->mlx)
+		return (EXIT_FAILURE);
+	game->tex_bg = mlx_load_png("./assets/images/background.png");
+	game->tex_wall = mlx_load_png("./assets/images/wall.png");
+	game->tex_collcetion = mlx_load_png("./assets/images/collect.png");
+	game->tex_exit = mlx_load_png("./assets/images/exit.png");
+	game->tex_left = mlx_load_png("./assets/images/hollow_knight_left.png");
+	game->tex_right = mlx_load_png("./assets/images/hollow_knight_right.png");
+	if (!game->tex_bg || !game->tex_wall || !game->tex_collcetion
+		|| !game->tex_exit || !game->tex_left || !game->tex_right)
+		return (EXIT_FAILURE);
+	game->background = mlx_texture_to_image(game->mlx, game->tex_bg);
+	game->wall = mlx_texture_to_image(game->mlx, game->tex_wall);
+	game->collection = mlx_texture_to_image(game->mlx, game->tex_collcetion);
+	game->exit = mlx_texture_to_image(game->mlx, game->tex_exit);
+	game->player_left = mlx_texture_to_image(game->mlx, game->tex_left);
+	game->player_right = mlx_texture_to_image(game->mlx, game->tex_right);
+	if (!game->background || !game->wall || !game->collection
+		|| !game->exit || !game->player_left || !game->player_right)
+		return (EXIT_FAILURE);
+	draw_background(game);
+	draw_map(game);
+	
 }
 
 int	main(void)
