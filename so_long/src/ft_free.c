@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 16:05:50 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 16:07:00 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 18:27:41 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_free_game(t_game *g)
 		mlx_delete_texture(g->tex_left);
 	if (g->tex_right)
 		mlx_delete_texture(g->tex_right);
+	if (g->coins)
+		free(g->coins);
 	if (g->map)
 		ft_free_map(g->map, g->height);
 	if (g->mlx)

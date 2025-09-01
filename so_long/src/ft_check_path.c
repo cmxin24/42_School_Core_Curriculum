@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:12:25 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 16:12:32 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 18:27:40 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,12 @@ int	ft_check_path(t_map *map)
 	{
 		visited[y] = ft_calloc(map->width, sizeof(int));
 		if (!visited[y])
+		{
+			while (--y >= 0)
+				free(visited[y]);
+			free(visited);
 			return (0);
+		}
 		y++;
 	}
 	if (!ft_find_player(map, &px, &py))

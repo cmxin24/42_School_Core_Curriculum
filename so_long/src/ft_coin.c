@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_coin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:43:17 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 15:43:55 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 18:27:41 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	collcet_coin(t_game *g, int x, int y)
 	if (g->map[y][x] != 'C')
 		return ;
 	g->map[y][x] = '0';
+	if (!g->coins)
+		return ;
 	i = 0;
 	while (i < g->coin_count)
 	{

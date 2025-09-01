@@ -1,14 +1,23 @@
-NAME	:= Game
+NAME	:= so_long
 CFLAGS	:= -O3 -ffast-math -Wextra -Wall -Werror -Wunreachable-code
 LIBMLX	:= ./lib/MLX42
 MYLIB	:= lib
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS	:= $(shell find ./src -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
 MYLIB_PATH = ./$(MYLIB)
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+    LIBS := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+endif
+
+ifeq ($(UNAME), Darwin)
+    LIBS := $(LIBMLX)/build/libmlx42.a -lglfw -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
+endif
 
 all: libmlx $(NAME)
 

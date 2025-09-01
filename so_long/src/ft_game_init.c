@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_game_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:49:28 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 15:52:49 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 18:27:43 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,26 @@ int	ft_game_init(t_game *game, char *map_path)
 	if (!game->map || !ft_validate_map(game->map, game->width, game->height))
 		return (ft_free_game(game), exit(EXIT_FAILURE), 0);
 	game->coin_left = count_coins(game->map, game->width, game->height);
+	game->coins = NULL;
 	if (game->coin_left > 0)
 	{
 		game->coins = (t_coin *)malloc(sizeof(t_coin) * game->coin_left);
 		if (!game->coins)
 			return (0);
+		ft_memset(game->coins, 0, sizeof(t_coin) * game->coin_left);
 	}
 	game->mlx = mlx_init(game->width * 32, game->height * 32, "So_long!", true);
 	if (!game->mlx)
-		return (0);
+		return (ft_free_game(game), 0);
 	ft_game_load_png(game);
 	if (!game->tex_bg || !game->tex_wall || !game->tex_coin
 		|| !game->tex_exit || !game->tex_left || !game->tex_right)
-		return (0);
+		return (ft_free_game(game), 0);
 	ft_game_texture_to_image(game);
 	if (!game->background || !game->wall || !game->coin
 		|| !game->exit || !game->player_left || !game->player_right)
-		return (0);
+		return (ft_free_game(game), 0);
 	if (!draw_bg(game) || !draw_map(game, 0, 0) || !ft_init_pos(game, 0, 0))
-		return (0);
+		return (ft_free_game(game), 0);
 	return (1);
 }

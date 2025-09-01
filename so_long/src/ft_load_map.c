@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:57:36 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 17:44:44 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 18:27:44 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ char	**load_maps(const char *path, int *width, int *height, int count)
 		newline = ft_strchr(line, '\n');
 		if (newline)
 			*newline = '\0';
-		map = NULL; //ft_add_lines(map, count, line);
+		map = ft_add_lines(map, count, line);
+		if (!map)
+			return (free(line), close(fd), NULL);
 		free(line);
 		count ++;
 		line = get_next_line(fd);
