@@ -6,21 +6,21 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:53:45 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 16:13:11 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 20:12:46 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static void	switch_facing(mlx_image_t **curr, mlx_image_t *left, mlx_image_t *right)
+static void	switch_facing(mlx_image_t **curr, mlx_image_t *l, mlx_image_t *r)
 {
 	mlx_image_t	*prev;
 
 	prev = *curr;
-	if (prev == left)
-		*curr = right;
+	if (prev == l)
+		*curr = r;
 	else
-		*curr = left;
+		*curr = l;
 	if (prev && (*curr) && prev != *curr)
 	{
 		if (prev->count > 0)
@@ -65,10 +65,12 @@ static void	move_player(t_game *g, int new_x, int new_y)
 	}
 	g->player_x = new_x;
 	g->player_y = new_y;
+	ft_printf("The number of movements is: %d \n", ++g->step_count);
 }
 
-static void	ft_handle_exit(t_game *g, int new_x, int new_y)
+static void	ft_handle_coin_and_exit(t_game *g, int new_x, int new_y)
 {
+	collcet_coin(g, new_x, new_y);
 	if (g->map[new_y][new_x] == 'E')
 	{
 		if (g->coin_left == 0)
@@ -106,6 +108,5 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		|| g->map[new_y][new_x] == '1')
 		return ;
 	move_player(g, new_x, new_y);
-	collcet_coin(g, new_x, new_y);
-	ft_handle_exit(g, new_x, new_y);
+	ft_handle_coin_and_exit(g, new_x, new_y);
 }

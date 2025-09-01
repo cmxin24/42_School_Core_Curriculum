@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:57:01 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 16:12:06 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 20:28:58 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_check_wall(char **map, int x, int y, int height)
 {
 	if (map[y][x] != '1')
 	{
-		printf("Error: Map border must be walls!\n");
+		printf("Error\nMap border must be walls!\n");
 		ft_free_map(map, height);
 		exit(EXIT_FAILURE);
 	}
@@ -26,17 +26,17 @@ static int	ft_check_num(int player, int exit, int coin)
 {
 	if (player != 1)
 	{
-		ft_printf("Error: The number of player should be 1!\n");
+		ft_printf("Error\nThe number of player should be 1!\n");
 		return (0);
 	}
-	if (exit < 1)
+	if (exit != 1)
 	{
-		ft_printf("Error: Map should have at least 1 exit!\n");
+		ft_printf("Error\nMap should have only 1 exit!\n");
 		return (0);
 	}
 	if (coin < 1)
 	{
-		ft_printf("Error: Map should have at least 1 coin!\n");
+		ft_printf("Error\nMap should have at least 1 coin!\n");
 		return (0);
 	}
 	return (1);
@@ -80,7 +80,7 @@ int	ft_validate_map(char **map, int width, int height)
 	temp.map = map;
 	temp.width = width;
 	temp.height = height;
-	if (!ft_check_path(&temp))
+	if (!ft_check_path(&temp, 0, -1, -1))
 		return (0);
 	return (1);
 }

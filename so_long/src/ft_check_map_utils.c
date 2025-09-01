@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:39:25 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 15:39:51 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 20:29:15 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_check_char(char c, char **map, int height)
 {
 	if (!(c == '0' || c == '1' || c == 'P' || c == 'E' || c == 'C'))
 	{
-		ft_printf("Error: Map contains wrong character!\n");
+		ft_printf("Error\nMap contains wrong character!\n");
 		ft_free_map(map, height);
 		exit(EXIT_FAILURE);
 	}
@@ -26,7 +26,7 @@ void	ft_check_rectangle(char **map, int y, int width, int height)
 {
 	if ((int)ft_strlen(map[y]) != width)
 	{
-		ft_printf("Error: Map is not rectangular!\n");
+		ft_printf("Error\nMap is not rectangular!\n");
 		ft_free_map(map, height);
 		exit(EXIT_FAILURE);
 	}

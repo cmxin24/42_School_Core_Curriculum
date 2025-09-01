@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:57:36 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 18:27:44 by meyu             ###   ########.fr       */
+/*   Updated: 2025/09/01 20:25:52 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ static char	**ft_add_lines(char **map, int count, char *line)
 	return (new_map);
 }
 
+static void	check_new_line(char *line, char *newline)
+{
+	newline = ft_strchr(line, '\n');
+	if (newline)
+		*newline = '\0';
+}
+
 char	**load_maps(const char *path, int *width, int *height, int count)
 {
 	int		fd;
@@ -59,12 +66,11 @@ char	**load_maps(const char *path, int *width, int *height, int count)
 	if (fd < 0)
 		return (NULL);
 	map = NULL;
+	newline = NULL;
 	line = get_next_line(fd);
 	while (line)
 	{
-		newline = ft_strchr(line, '\n');
-		if (newline)
-			*newline = '\0';
+		check_new_line(line, newline);
 		map = ft_add_lines(map, count, line);
 		if (!map)
 			return (free(line), close(fd), NULL);

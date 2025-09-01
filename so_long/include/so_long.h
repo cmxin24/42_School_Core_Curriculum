@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:29:07 by meyu              #+#    #+#             */
-/*   Updated: 2025/09/01 16:12:01 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 20:24:31 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	collcet_coin(t_game *g, int x, int y);
 int		count_coins(char **map, int width, int height);
 void	key_hook(mlx_key_data_t keydata, void *param);
 void	ft_free_game(t_game *g);
-int		ft_check_path(t_map *map);
+int		ft_check_path(t_map *map, int y, int px, int py);
 int		ft_validate_map(char **map, int width, int height);
 void	ft_free_game(t_game *g);
 

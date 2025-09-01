@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:12:25 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 18:27:40 by meyu             ###   ########.fr       */
+/*   Updated: 2025/09/01 20:29:06 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	ft_check_accessible(t_map *map, int **visited)
 			if ((map->map[y][x] == 'C' || map->map[y][x] == 'E')
 				&& !visited[y][x])
 			{
-				ft_printf("Error: Not all coins and exits are reachable!\n");
+				ft_printf("Error\nNot all coins and exits are reachable!\n");
 				ft_free_visited(map, visited);
 				return (0);
 			}
@@ -90,12 +90,9 @@ static int	ft_check_accessible(t_map *map, int **visited)
 	return (1);
 }
 
-int	ft_check_path(t_map *map)
+int	ft_check_path(t_map *map, int y, int px, int py)
 {
 	int	**visited;
-	int	y;
-	int	px;
-	int	py;
 
 	visited = malloc(sizeof(int *) * map->height);
 	if (!visited)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_game_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:49:28 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 18:27:43 by meyu             ###   ########.fr       */
+/*   Updated: 2025/09/01 20:40:54 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,24 @@ static int	ft_init_pos(t_game *game, int x, int y)
 	return (0);
 }
 
-static void	ft_game_load_png(t_game *game)
+static int	ft_game_load_png(t_game *game)
 {
-	game->tex_bg = mlx_load_png("./assets/images/background.png");
-	game->tex_wall = mlx_load_png("./assets/images/wall.png");
-	game->tex_coin = mlx_load_png("./assets/images/collect.png");
-	game->tex_exit = mlx_load_png("./assets/images/exit.png");
-	game->tex_left = mlx_load_png("./assets/images/hollow_knight_left.png");
-	game->tex_right = mlx_load_png("./assets/images/hollow_knight_right.png");
+	game->tex_bg = mlx_load_png("./textures/background.png");
+	game->tex_wall = mlx_load_png("./textures/wall.png");
+	game->tex_coin = mlx_load_png("./textures/collect.png");
+	game->tex_exit = mlx_load_png("./textures/exit.png");
+	game->tex_left = mlx_load_png("./textures/hollow_knight_left.png");
+	game->tex_right = mlx_load_png("./textures/hollow_knight_right.png");
+	if (!game->tex_bg || !game->tex_wall || !game->tex_coin
+		|| !game->tex_exit || !game->tex_left || !game->tex_right)
+	{
+		ft_printf("Error\nLoad png failed!\n");
+		return (ft_free_game(game), 0);
+	}
+	return (1);
 }
 
-static void	ft_game_texture_to_image(t_game *game)
+static int	ft_game_texture_to_image(t_game *game)
 {
 	game->background = mlx_texture_to_image(game->mlx, game->tex_bg);
 	game->wall = mlx_texture_to_image(game->mlx, game->tex_wall);
@@ -59,6 +66,13 @@ static void	ft_game_texture_to_image(t_game *game)
 	game->exit = mlx_texture_to_image(game->mlx, game->tex_exit);
 	game->player_left = mlx_texture_to_image(game->mlx, game->tex_left);
 	game->player_right = mlx_texture_to_image(game->mlx, game->tex_right);
+	if (!game->background || !game->wall || !game->coin
+		|| !game->exit || !game->player_left || !game->player_right)
+	{
+		ft_printf("Error\nMake texture to image failed!\n");
+		return (ft_free_game(game), 0);
+	}
+	return (1);
 }
 
 int	ft_game_init(t_game *game, char *map_path)
@@ -79,14 +93,10 @@ int	ft_game_init(t_game *game, char *map_path)
 	game->mlx = mlx_init(game->width * 32, game->height * 32, "So_long!", true);
 	if (!game->mlx)
 		return (ft_free_game(game), 0);
-	ft_game_load_png(game);
-	if (!game->tex_bg || !game->tex_wall || !game->tex_coin
-		|| !game->tex_exit || !game->tex_left || !game->tex_right)
-		return (ft_free_game(game), 0);
-	ft_game_texture_to_image(game);
-	if (!game->background || !game->wall || !game->coin
-		|| !game->exit || !game->player_left || !game->player_right)
-		return (ft_free_game(game), 0);
+	if (!ft_game_load_png(game))
+		return (0);
+	if (!ft_game_texture_to_image(game))
+		return (0);
 	if (!draw_bg(game) || !draw_map(game, 0, 0) || !ft_init_pos(game, 0, 0))
 		return (ft_free_game(game), 0);
 	return (1);
