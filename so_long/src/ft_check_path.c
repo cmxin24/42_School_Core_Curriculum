@@ -6,13 +6,13 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:12:25 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 15:21:40 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 16:12:32 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	ft_free_visited(t_map *map, int **visited)
+static void	ft_free_visited(t_map *map, int **visited)
 {
 	int	y;
 
@@ -38,7 +38,7 @@ void	dfs(t_map *map, int x, int y, int **visited)
 	dfs(map, x, y - 1, visited);
 }
 
-int	ft_find_player(t_map *map, int *px, int *py)
+static int	ft_find_player(t_map *map, int *px, int *py)
 {
 	int	y;
 	int	x;
@@ -65,7 +65,7 @@ int	ft_find_player(t_map *map, int *px, int *py)
 	return (1);
 }
 
-int	ft_check_accessible(t_map *map, int **visited)
+static int	ft_check_accessible(t_map *map, int **visited)
 {
 	int	y;
 	int	x;

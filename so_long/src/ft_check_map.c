@@ -6,13 +6,13 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:57:01 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 15:49:03 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 16:12:06 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	ft_check_wall(char **map, int x, int y, int height)
+static void	ft_check_wall(char **map, int x, int y, int height)
 {
 	if (map[y][x] != '1')
 	{
@@ -22,7 +22,7 @@ void	ft_check_wall(char **map, int x, int y, int height)
 	}
 }
 
-int	ft_check_num(int player, int exit, int coin)
+static int	ft_check_num(int player, int exit, int coin)
 {
 	if (player != 1)
 	{
@@ -42,7 +42,7 @@ int	ft_check_num(int player, int exit, int coin)
 	return (1);
 }
 
-int	ft_check_map(char **map, int width, int heigth, int coin)
+static int	ft_check_map(char **map, int width, int heigth, int coin)
 {
 	int	x;
 	int	y;

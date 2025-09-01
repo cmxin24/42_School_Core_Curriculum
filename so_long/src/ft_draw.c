@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:44:34 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 16:09:32 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 16:12:55 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	draw_bg(t_game *game)
 	return (1);
 }
 
-void	draw_coin(t_game *game, int *id, int x, int y)
+static void	draw_coin(t_game *game, int *id, int x, int y)
 {
 	*id = mlx_image_to_window(game->mlx, game->coin, x * 32, y * 32);
 	if (*id >= 0)

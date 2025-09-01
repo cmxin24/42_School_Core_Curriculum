@@ -6,13 +6,13 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:53:45 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 16:07:54 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 16:13:11 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	switch_facing(mlx_image_t **curr, mlx_image_t *left, mlx_image_t *right)
+static void	switch_facing(mlx_image_t **curr, mlx_image_t *left, mlx_image_t *right)
 {
 	mlx_image_t	*prev;
 

@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:29:07 by meyu              #+#    #+#             */
-/*   Updated: 2025/09/01 16:07:11 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 16:12:01 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	ft_check_rectangle(char **map, int y, int width, int height);
 void	ft_check_player(char **map, int x, int y, int *player);
 void	ft_check_exit(char **map, int x, int y, int *exit);
 void	ft_check_coin(char **map, int x, int y, int *coin);
-int		ft_check_map(char **map, int width, int heigth, int coin);
 void	collcet_coin(t_game *g, int x, int y);
 int		count_coins(char **map, int width, int height);
 void	key_hook(mlx_key_data_t keydata, void *param);
