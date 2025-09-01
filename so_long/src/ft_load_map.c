@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:57:36 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 16:09:58 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 17:44:44 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ char	**load_maps(const char *path, int *width, int *height, int count)
 	line = get_next_line(fd);
 	while (line)
 	{
-		newline = strchr(line, '\n');
+		newline = ft_strchr(line, '\n');
 		if (newline)
 			*newline = '\0';
-		map = ft_add_lines(map, count, line);
+		map = NULL; //ft_add_lines(map, count, line);
 		free(line);
 		count ++;
 		line = get_next_line(fd);

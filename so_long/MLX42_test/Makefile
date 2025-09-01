@@ -18,6 +18,9 @@ libmlx:
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
+debug:
+	@$(CC) -g $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+
 clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(LIBMLX)/build
