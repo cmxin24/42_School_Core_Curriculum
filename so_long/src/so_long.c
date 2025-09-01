@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 16:35:19 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/29 17:49:57 by meyu             ###   ########.fr       */
+/*   Updated: 2025/09/01 11:08:41 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,98 +61,12 @@ int	draw_map(t_game *game, int x, int y)
 			else if (character == 'E')
 				img = game->exit;
 			if (img)
-			{
 				mlx_image_to_window(game->mlx, img, x * TILE, y * TILE);
-				img->instances[0].enabled = true;
-			}
 			x++;
 		}
 		y ++;
 	}
 	return (1);
-}
-
-static void	key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_game		*game;
-	mlx_image_t	*prev;
-	int			dx;
-	int			dy;
-	int			new_x;
-	int			new_y;
-
-	if (keydata.action != MLX_PRESS)
-		return ;
-	game = (t_game *)param;
-	dx = 0;
-	dy = 0;
-	if (keydata.key == MLX_KEY_ESCAPE)
-	{
-		mlx_close_window(game->mlx);
-		return ;
-	}
-	prev = game->current;
-	if (keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_A)
-	{
-		dx = -1;
-		game->current = game->player_left;
-	}
-	else if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_D)
-	{
-		dx = 1;
-		game->current = game->player_right;
-	}
-	else if (keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
-		dy = -1;
-	else if (keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
-		dy = 1;
-	if (prev != game->current)
-	{
-		if (prev->count > 0)
-			prev->instances[0].enabled = false;
-		if (game->current->count > 0)
-		{
-			game->current->instances[0].x = prev->instances[0].x;
-			game->current->instances[0].y = prev->instances[0].y;
-			game->current->instances[0].enabled = true;
-		}
-	}
-	new_x = game->player_x + dx;
-	new_y = game->player_y + dy;
-	if (new_x < 0 || new_y < 0 || new_x >= game->width || new_y >= game->height
-		|| game->map[new_y][new_x] == '1')
-		return ;
-	game->current->instances[0].x = new_x * TILE;
-	game->current->instances[0].y = new_y * TILE;
-	game->player_x = new_x;
-	game->player_y = new_y;
-	if (game->map[new_y][new_x] == 'C')
-	{
-		game->map[new_y][new_x] = '0';
-		int i = 0;
-		while (i < game->coin_count)
-		{
-			if (game->coins[i].x == new_x && game->coins[i].y == new_y)
-			{
-				game->coin->instances[game->coins[i].coin_id].enabled = false;
-				break ;
-			}
-			i++;
-		}
-		game->coin_left--;
-	}
-	if (game->map[new_y][new_x] == 'E')
-	{
-		if (game->coin_left == 0)
-		{
-			printf("You collected all coins! Exiting...\n");
-			mlx_close_window(game->mlx);
-		}
-		else
-		{
-			printf("You need to collect all coins before exiting!\n");
-		}
-	}
 }
 
 int	ft_init_pos(t_game *game)
@@ -185,12 +99,129 @@ int	ft_init_pos(t_game *game)
 	return (0);
 }
 
+void	switch_facing(mlx_image_t **curr, mlx_image_t *left, mlx_image_t *right)
+{
+	mlx_image_t	*prev;
+
+	prev = *curr;
+	if (prev == left)
+		*curr = right;
+	else
+		*curr = left;
+
+	if (prev && (*curr) && prev != *curr)
+	{
+		if (prev->count > 0)
+			prev->instances[0].enabled = false;
+		if ((*curr)->count > 0)
+		{
+			(*curr)->instances[0].x = prev->instances[0].x;
+			(*curr)->instances[0].y = prev->instances[0].y;
+			(*curr)->instances[0].enabled = true;
+		}
+	}
+}
+
+void	collcet_coin(t_game *g, int x, int y)
+{
+	int	i;
+
+	if (g->map[y][x] != 'C')
+		return ;
+	g->map[y][x] = '0';
+	i = 0;
+	while (i < g->coin_count)
+	{
+		if (!g->coins[i].collected && g->coins[i].x == x && g->coins[i].y == y)
+		{
+			if (g->coin && (int)g->coin->count > g->coins[i].coin_id)
+				g->coin->instances[g->coins[i].coin_id].enabled = false;
+			g->coins[i].collected = true;
+			break ;
+		}
+		i++;
+	}
+	if (g->coin_left > 0)
+		g->coin_left--;
+}
+
+
+static void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	t_game		*g;
+	int			dx;
+	int			dy;
+	int			new_x;
+	int			new_y;
+
+	if (keydata.action != MLX_PRESS)
+		return ;
+	g = (t_game *)param;
+	dx = 0;
+	dy = 0;
+	if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		mlx_close_window(g->mlx);
+		return ;
+	}
+	if (keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_A)
+	{
+		dx = -1;
+		if (g->current != g->player_left)
+			switch_facing(&g->current, g->player_left, g->player_right);
+	}
+	else if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_D)
+	{
+		dx = 1;
+		if (g->current != g->player_right)
+			switch_facing(&g->current, g->player_left, g->player_right);
+	}
+	else if (keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
+		dy = -1;
+	else if (keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
+		dy = 1;
+	if (dx == 0 && dy ==0)
+		return ;
+	new_x = g->player_x + dx;
+	new_y = g->player_y + dy;
+	if (new_x < 0 || new_y < 0 || new_x >= g->width || new_y >= g->height
+		|| g->map[new_y][new_x] == '1')
+		return ;
+	if (g->current && g->current->count > 0)
+	{
+		g->current->instances[0].x = new_x * TILE;
+		g->current->instances[0].y = new_y * TILE;
+	}
+	g->player_x = new_x;
+	g->player_y = new_y;
+	collcet_coin(g, new_x, new_y);
+	if (g->map[new_y][new_x] == 'E')
+	{
+		if (g->coin_left == 0)
+		{
+			printf("You collected all coins! Exiting...\n");
+			mlx_close_window(g->mlx);
+		}
+		else
+		{
+			printf("You need to collect all coins before exiting!\n");
+		}
+	}
+}
+
 int	ft_game_init(t_game *game, char *map_path)
 {
 	ft_memset(game, 0, sizeof(t_game));
 	game->map = load_maps(map_path, &game->width, &game->height);
 	if (!game->map)
 		return (0);
+	game->coin_left = count_coins(game->map, game->width, game->height);
+	if (game->coin_left > 0)
+	{
+		game->coins = (t_coin *)malloc(sizeof(t_coin) * game->coin_left);
+		if (!game->coins)
+			return (0);
+	}
 	game->mlx = mlx_init(game->width * 32, game->height * 32, "So_long!", true);
 	if (!game->mlx)
 		return (0);

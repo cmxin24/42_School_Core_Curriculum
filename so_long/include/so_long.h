@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:29:07 by meyu              #+#    #+#             */
-/*   Updated: 2025/08/29 17:45:14 by meyu             ###   ########.fr       */
+/*   Updated: 2025/09/01 10:50:23 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@
 
 char	**load_maps(const char *path, int *width, int *height);
 void	ft_free_map(char **map, int h);
+int		count_coins(char **map, int width, int height);
 
 typedef struct s_coin
 {
-	int	x;
-	int	y;
-	int	coin_id;
+	int		x;
+	int		y;
+	int		coin_id;
+	bool	collected;
 }	t_coin;
 
 typedef struct s_game
@@ -57,11 +59,11 @@ typedef struct s_game
 	char			**map;
 	int				width;
 	int				height;
-	int				coin_left;
 	int				step_count;
 	int				player_x;
 	int				player_y;
 	t_coin			*coins;
+	int				coin_left;
 	int				coin_count;
 }	t_game;
 

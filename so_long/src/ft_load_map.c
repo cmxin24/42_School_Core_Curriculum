@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_load_maps.c                                     :+:      :+:    :+:   */
+/*   ft_load_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:57:36 by xin               #+#    #+#             */
-/*   Updated: 2025/08/29 17:54:20 by meyu             ###   ########.fr       */
+/*   Updated: 2025/08/29 21:57:34 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	**ft_add_lines(char **map, int count, char *line)
 	char	**new_map;
 	int		i;
 
-	new_map = (char **)malloc(sizeof(char *) * (count +1));
+	new_map = (char **)malloc(sizeof(char *) * (count + 2));
 	if (!new_map)
 		return (NULL);
 	i = 0;
@@ -64,6 +64,7 @@ static char	**ft_add_lines(char **map, int count, char *line)
 		i++;
 	}
 	new_map[count] = ft_strdup(line);
+	new_map[count + 1] = NULL;
 	if (map)
 		free(map);
 	return (new_map);
