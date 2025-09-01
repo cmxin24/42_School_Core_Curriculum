@@ -6,33 +6,11 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:57:36 by xin               #+#    #+#             */
-/*   Updated: 2025/08/29 21:57:34 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/01 16:09:58 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-int	count_coins(char **map, int width, int height)
-{
-	int	x;
-	int	y;
-	int	count;
-
-	count = 0;
-	y = 0;
-	while (y < height)
-	{
-		x = 0;
-		while (x < width)
-		{
-			if (map[y][x] == 'C')
-				count++;
-			x++;
-		}
-		y++;
-	}
-	return (count);
-}
 
 void	ft_free_map(char **map, int h)
 {
@@ -70,23 +48,22 @@ static char	**ft_add_lines(char **map, int count, char *line)
 	return (new_map);
 }
 
-char	**load_maps(const char *path, int *width, int *height)
+char	**load_maps(const char *path, int *width, int *height, int count)
 {
 	int		fd;
 	char	*line;
 	char	**map;
-	int		count;
+	char	*newline;
 
 	fd = open (path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
 	map = NULL;
-	count = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
-		char *newline = strchr(line, '\n');
-        if (newline)
+		newline = strchr(line, '\n');
+		if (newline)
 			*newline = '\0';
 		map = ft_add_lines(map, count, line);
 		free(line);
@@ -96,8 +73,5 @@ char	**load_maps(const char *path, int *width, int *height)
 	close(fd);
 	if (count == 0)
 		return (NULL);
-	*width = ft_strlen(map[0]);
-	*height = count;
-	return (map);
+	return ((*width = ft_strlen(map[0])), (*height = count), map);
 }
-
