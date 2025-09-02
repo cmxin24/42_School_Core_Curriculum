@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:49:28 by xin               #+#    #+#             */
-/*   Updated: 2025/09/01 20:40:54 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/02 10:54:39 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,18 @@ static int	ft_game_texture_to_image(t_game *game)
 	return (1);
 }
 
+int	ft_display_step(t_game *game)
+{
+	game->step_next = mlx_put_string(game->mlx, "The number of moves: 0",
+			10, 10);
+	if (!game->step_next)
+	{
+		ft_printf("Error\nFailed to display step text!\n");
+		return (ft_free_game(game), 0);
+	}
+	return (1);
+}
+
 int	ft_game_init(t_game *game, char *map_path)
 {
 	ft_memset(game, 0, sizeof(t_game));
@@ -99,5 +111,7 @@ int	ft_game_init(t_game *game, char *map_path)
 		return (0);
 	if (!draw_bg(game) || !draw_map(game, 0, 0) || !ft_init_pos(game, 0, 0))
 		return (ft_free_game(game), 0);
+	if (!ft_display_step(game))
+		return (0);
 	return (1);
 }

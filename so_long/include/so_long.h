@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:29:07 by meyu              #+#    #+#             */
-/*   Updated: 2025/09/01 20:24:31 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/02 10:48:51 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_game
 	t_coin			*coins;
 	int				coin_left;
 	int				coin_count;
+	mlx_image_t		*step_next;
 }	t_game;
 
 int		draw_bg(t_game *game);
