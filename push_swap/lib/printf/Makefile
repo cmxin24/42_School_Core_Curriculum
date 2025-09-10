@@ -1,6 +1,6 @@
 NAME = printf.a
 
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Werror -I../includes
 
 SRC =	ft_print_csp.c		\
 		ft_print_di.c		\

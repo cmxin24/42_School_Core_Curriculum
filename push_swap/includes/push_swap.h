@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:17:33 by xin               #+#    #+#             */
-/*   Updated: 2025/09/10 10:11:39 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 11:26:45 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <unistd.h>
+# include <stdint.h>
 # include "../lib/includes/libft.h"
 # include "stack.h"
 
