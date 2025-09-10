@@ -3,69 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 11:28:37 by xin               #+#    #+#             */
-/*   Updated: 2025/08/14 19:01:01 by meyu             ###   ########.fr       */
+/*   Created: 2025/09/03 16:17:33 by xin               #+#    #+#             */
+/*   Updated: 2025/09/10 10:11:39 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
-# include <math.h>
+# include <unistd.h>
+# include "../lib/includes/libft.h"
+# include "stack.h"
 
-typedef struct s_node
+typedef enum e_location
 {
-	int				data;
-	int				rank;
-	struct s_node	*next;
-}	t_node;
-typedef struct s_stack
+	A_top,
+	A_bottom,
+	B_top,
+	B_bottom
+}	t_loc;
+
+typedef struct s_chunk
 {
-	t_node	*top;
+	t_loc	loc;
 	int		size;
-}	t_stack;
+}	t_chunk;
 
-bool	ft_push(t_stack *s, int num);
-int		ft_pop(t_stack *s, int *num);
-bool	ft_swap(t_stack *a);
-void	ft_sa(t_stack *a);
-void	ft_sb(t_stack *b);
-void	ft_ss(t_stack *a, t_stack *b);
-bool	ft_push_to(t_stack *dest, t_stack *src);
-void	ft_pa(t_stack *a, t_stack *b);
-void	ft_pb(t_stack *a, t_stack *b);
-bool	ft_rotate(t_stack *s);
-void	ft_ra(t_stack *a);
-void	ft_rb(t_stack *b);
-void	ft_rr(t_stack *a, t_stack *b);
-bool	ft_reverse_rotate(t_stack *s);
-void	ft_rra(t_stack *a);
-void	ft_rrb(t_stack *b);
-void	ft_rrr(t_stack *a, t_stack *b);
-void	ft_print_error(void);
-int		ft_atol(char *s);
-int		is_number(char *s);
-void	ft_check_duplicates(int *num_array, int lenth);
-int		*ft_argv_check(int argc, char **argv);
-bool	ft_array_to_stack(t_stack *s, int *num_array, size_t num_size);
-bool	ft_sort_three(t_stack *a);
-int		ft_find_min(t_stack *a);
-void	ft_min_to_top(t_stack *a, size_t num_size);
-bool	ft_sort_small(t_stack *a, t_stack *b, size_t num_size);
-bool	ft_is_stack_sorted(t_stack *a);
-bool	ft_push_swap(t_stack *a, t_stack *b, int num_size);
-void	quicksort(int *num_array, int left, int right);
-void	ft_set_rank(t_stack *a, size_t num_size, int *num_array);
-void	ft_push_chunks(t_stack *a, t_stack *b, int chunk_num, int start);
-bool	ft_sort_chunk(t_stack *a, t_stack *b, int chunk_num);
-void	ft_free_stack(t_stack *s);
-void	ft_update_chunk(int *start, int *end, int chunk_size, int *pushed);
+typedef struct s_split
+{
+	t_chunk	min;
+	t_chunk	mid;
+	t_chunk	max;
+}	t_split;
+
+void	ft_sort_stack(t_ps *data);
+
+void	ft_sort_three(t_ps *data, t_chunk *to_sort);
+void	ft_sort_two(t_ps *data, t_chunk *to_sort);
+void	ft_sort_one(t_ps *data, t_chunk *to_sort);
+
+bool	a_partly_sort(t_ps *data, int from);
+void	ft_easy_sort(t_ps *data, t_chunk *to_sort);
+
+void	ft_split_max_reduction(t_ps *data, t_chunk *max);
+
+int		ft_get_chunk_value(t_ps *data, t_chunk *chunk, int n);
+int		ft_get_max_value(t_ps *data, t_chunk *chunk);
+
+int		ft_move(t_ps *data, t_loc from, t_loc to);
+
+void	set_split_location(t_loc loc, t_chunk *min, t_chunk *mid, t_chunk *max);
+void	set_third_piovt(t_loc loc, int current_size, int *piovt_1,
+			int *piovt_2);
+void	ft_sort_chunk(t_ps *data);
+
+t_op	neutral_op(t_op op);
+void	ft_final_optimization(t_ps *data);
 
 #endif
