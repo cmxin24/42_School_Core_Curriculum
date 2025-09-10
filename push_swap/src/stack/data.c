@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:40:10 by xin               #+#    #+#             */
-/*   Updated: 2025/09/09 18:54:00 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 12:00:21 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,26 @@
 
 void	ft_init_data(t_ps *data, int argc, char **argv, bool mandatory_part)
 {
+	data->opt = NULL;
+	data->mandatory_part = mandatory_part;
 	argc--;
 	ft_init_stack(data, &data->a, argc);
 	ft_init_stack(data, &data->b, argc);
 	ft_add_number_to_stack(data, &data->a, argc, ++argv);
-	data->mandatory_part = mandatory_part;
-	data->opt = NULL;
 }
 
 void	ft_free_data(t_ps *data)
 {
 	if (data->a.rank)
+	{
 		free(data->a.rank);
+		data->a.rank = NULL;
+	}
 	if (data->b.rank)
+	{
 		free(data->b.rank);
+		data->b.rank = NULL;
+	}
 	if (data->opt)
 		ft_lstclear(&data->opt, NULL);
 }

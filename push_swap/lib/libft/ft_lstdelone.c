@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 16:23:45 by meyu              #+#    #+#             */
-/*   Updated: 2025/07/11 16:25:28 by meyu             ###   ########.fr       */
+/*   Updated: 2025/09/10 11:59:23 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	if (!lst || !del)
+	if (!lst)
 		return ;
-	del(lst -> content);
+	if (del)
+		del(lst -> content);
 	free(lst);
 }
