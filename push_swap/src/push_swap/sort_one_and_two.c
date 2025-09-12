@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_one_and_two.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:50:13 by xin               #+#    #+#             */
-/*   Updated: 2025/09/09 15:34:27 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:01:47 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_sort_two(t_ps *data, t_chunk *to_sort)
 		ft_move(data, to_sort->loc, A_top);
 		ft_move(data, to_sort->loc, A_top);
 	}
-	if (ft_get_value(&data->a, 1) > ft_get_value(&data->a, 2))
+	if (ft_get_rank(&data->a, 1) > ft_get_rank(&data->a, 2))
 		swap_a(data);
 	to_sort->size -= 2;
 }

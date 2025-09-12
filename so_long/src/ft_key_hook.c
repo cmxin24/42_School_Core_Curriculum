@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_key_hook.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:53:45 by xin               #+#    #+#             */
-/*   Updated: 2025/09/02 11:17:33 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/02 12:22:43 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ static void	ft_handle_coin_and_exit(t_game *g, int new_x, int new_y)
 	}
 }
 
-static void	move_player(t_game *g, int new_x, int new_y)
+static int	move_player(t_game *g, int new_x, int new_y, char **step_num)
 {
+	char		*step_str;
+
 	if (g->current && g->current->count > 0)
 	{
 		g->current->instances[0].x = new_x * TILE;
@@ -89,6 +91,14 @@ static void	move_player(t_game *g, int new_x, int new_y)
 	g->player_y = new_y;
 	g->step_count++;
 	ft_handle_coin_and_exit(g, new_x, new_y);
+	step_str = ft_itoa(g->step_count);
+	if (!step_str)
+		return (0);
+	*step_num = ft_strjoin("The number of moves: ", step_str);
+	free(step_str);
+	if (!(*step_num))
+		return (0);
+	return (1);
 }
 
 void	key_hook(mlx_key_data_t keydata, void *param)
@@ -111,9 +121,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (new_x < 0 || new_y < 0 || new_x >= g->width || new_y >= g->height
 		|| g->map[new_y][new_x] == '1')
 		return ;
-	move_player(g, new_x, new_y);
-	step_num = ft_strjoin("The number of moves: ", ft_itoa(g->step_count));
-	if (!step_num)
+	if (!move_player(g, new_x, new_y, &step_num))
 		return ;
 	mlx_delete_image(g->mlx, g->step_next);
 	g->step_next = mlx_put_string(g->mlx, step_num, 10, 10);

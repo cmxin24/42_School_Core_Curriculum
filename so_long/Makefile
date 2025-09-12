@@ -22,6 +22,10 @@ endif
 all: libmlx $(NAME)
 
 libmlx:
+	@if [ ! -d "$(LIBMLX)" ] || [ -z "$$(ls -A @(LIBMLX) 2>/dev/null)" ]; then \
+	echo "MLX42 not found, cloning from Github ..."; \
+	git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
+	fi
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o: %.c

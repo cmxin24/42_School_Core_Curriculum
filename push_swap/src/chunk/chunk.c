@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chunk_utils.c                                      :+:      :+:    :+:   */
+/*   chunk.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 17:39:05 by xin               #+#    #+#             */
-/*   Updated: 2025/09/09 15:39:26 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:17:03 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	ft_split_max_reduction(t_ps *data, t_chunk *max)
 
 	a = &data->a;
 	if (max->loc == A_top && max->size == 3
-		&& is_consecutive(ft_get_value(a, 1), ft_get_value(a, 2),
-			ft_get_value(a, 3), ft_get_value(a, 4)) && a_partly_sort(data, 4))
+		&& is_consecutive(ft_get_rank(a, 1), ft_get_rank(a, 2),
+			ft_get_rank(a, 3), ft_get_rank(a, 4)) && a_partly_sort(data, 4))
 	{
 		ft_sort_three(data, max);
 		return ;
 	}
-	if (max->loc == A_top && ft_get_value(a, 1) == ft_get_value(a, 3) - 1
+	if (max->loc == A_top && ft_get_rank(a, 1) == ft_get_rank(a, 3) - 1
 		&& a_partly_sort(data, 3))
 	{
 		swap_a(data);
@@ -79,7 +79,7 @@ void	ft_split_max_reduction(t_ps *data, t_chunk *max)
 		max->size--;
 }
 
-int	ft_get_chunk_value(t_ps *data, t_chunk *chunk, int n)
+int	ft_get_chunk_rank(t_ps *data, t_chunk *chunk, int n)
 {
 	t_loc	loc;
 	t_stack	*s;
@@ -103,7 +103,7 @@ int	ft_get_chunk_value(t_ps *data, t_chunk *chunk, int n)
 	return (s->rank[i]);
 }
 
-int	ft_get_max_value(t_ps *data, t_chunk *chunk)
+int	ft_get_max_rank(t_ps *data, t_chunk *chunk)
 {
 	t_stack	*s;
 	int		size;

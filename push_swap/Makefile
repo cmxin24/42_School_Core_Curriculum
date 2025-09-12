@@ -1,6 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/09/10 14:09:57 by meyu              #+#    #+#              #
+#    Updated: 2025/09/10 18:03:19 by meyu             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		=	push_swap
 CHECKER		=	checker
-
 
 CFLAGS		= 	-Wall -Werror -Wextra -Iincludes
 
@@ -13,35 +24,37 @@ PTF_DIR		=	lib/printf
 SRCS 		:=	src/push_swap/main.c					\
 				src/push_swap/move.c					\
 				src/push_swap/optimization.c			\
-				src/push_swap/optimization_utils.c	\
-				src/push_swap/sort_stack.c			\
-				src/push_swap/sort_three.c			\
+				src/push_swap/optimization_utils.c		\
+				src/push_swap/sort_stack.c				\
+				src/push_swap/sort_three.c				\
 				src/push_swap/sort_one_and_two.c		\
 				src/stack/data.c						\
-				src/stack/stack_init.c				\
-				src/stack/stack_utils.c				\
-				src/chunk/chunk.c 					\
-				src/chunk/chunk_sort.c				\
-				src/chunk/chunk_sort_untils.c 		\
+				src/stack/data_utils.c					\
+				src/stack/stack_init.c					\
+				src/stack/stack_utils.c					\
+				src/chunk/chunk.c 						\
+				src/chunk/chunk_sort.c					\
+				src/chunk/chunk_sort_untils.c 			\
 				src/chunk/easy_sort.c					\
 				src/operations/ft_push.c				\
 				src/operations/ft_swap.c				\
-				src/operations/ft_rotate.c			\
-				src/operations/ft_reverse_rotate.c	\
-				src/operations/operations.c			\
+				src/operations/ft_rotate.c				\
+				src/operations/ft_reverse_rotate.c		\
+				src/operations/operations.c				\
 				src/operations/operation_print.c
 
 OBJ := $(SRCS:src/%.c=build/push_swap/%.o)
 
-CHECKER_SRC	:=	src/checker/checker_bonus.c			\
+CHECKER_SRC	:=	src/checker/checker_bonus.c				\
 				src/checker/checker_utils_bonus.c		\
 				src/stack/data.c						\
+				src/stack/data_utils.c					\
 				src/operations/ft_push.c				\
 				src/operations/ft_swap.c				\
-				src/operations/ft_rotate.c			\
-				src/operations/ft_reverse_rotate.c	\
+				src/operations/ft_rotate.c				\
+				src/operations/ft_reverse_rotate.c		\
 				src/stack/stack_init.c					\
-				src/stack/stack_utils.c				\
+				src/stack/stack_utils.c					\
 				src/operations/operations.c
 
 CHECKER_OBJ := $(CHECKER_SRC:src/%.c=build/checker/%.o)

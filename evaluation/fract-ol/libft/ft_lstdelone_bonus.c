@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nweber <nweber@student.42Heilbronn.de>     +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 10:36:52 by nweber            #+#    #+#             */
-/*   Updated: 2025/07/07 12:50:57 by nweber           ###   ########.fr       */
+/*   Updated: 2025/09/10 11:58:40 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // frees the given node
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	if (!lst || !del)
+	if (!lst)
 		return ;
 	del(lst->content);
 	free(lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:11:01 by xin               #+#    #+#             */
-/*   Updated: 2025/09/10 10:44:29 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 15:04:53 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(int argc, char **argv)
 	t_ps	data;
 
 	if (argc < 2)
-		ft_putendl_fd("Please use: ./push_swap <your numbers\
-			 separate by " ">", 2);
+		ft_putendl_fd("Please imput: ./push_swap \"your numbers\"\
+ separate by blank space.", 2);
 	ft_init_data(&data, argc, argv, true);
 	ft_sort_stack(&data);
 	ft_final_optimization(&data);

@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:40:10 by xin               #+#    #+#             */
-/*   Updated: 2025/09/10 12:00:21 by meyu             ###   ########.fr       */
+/*   Updated: 2025/09/10 18:03:13 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 void	ft_init_data(t_ps *data, int argc, char **argv, bool mandatory_part)
 {
+	int		size;
+	char	**numbers;
+
+	size = 0;
 	data->opt = NULL;
 	data->mandatory_part = mandatory_part;
-	argc--;
-	ft_init_stack(data, &data->a, argc);
-	ft_init_stack(data, &data->b, argc);
-	ft_add_number_to_stack(data, &data->a, argc, ++argv);
+	numbers = ft_split_argv(argc, argv, &size);
+	if (!numbers)
+		ft_error(data);
+	ft_init_stack(data, &data->a, size);
+	ft_init_stack(data, &data->b, size);
+	ft_add_number_to_stack(data, &data->a, size, numbers);
+	ft_free_split(numbers, size);
 }
 
 void	ft_free_data(t_ps *data)
@@ -45,7 +52,7 @@ void	ft_error(t_ps *data)
 	exit(EXIT_FAILURE);
 }
 
-int	ft_get_value(t_stack *s, int n)
+int	ft_get_rank(t_stack *s, int n)
 {
 	int	i;
 

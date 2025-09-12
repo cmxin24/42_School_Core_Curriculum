@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_three.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 17:31:59 by xin               #+#    #+#             */
-/*   Updated: 2025/09/07 14:21:37 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:17:04 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	ft_sort_three(t_ps *data, t_chunk *to_sort)
 		s = &data->a;
 	else
 		s = &data->b;
-	max = ft_get_max_value(data, to_sort);
+	max = ft_get_max_rank(data, to_sort);
 	if (to_sort->loc == A_top)
 		ft_sort_three_top_a(data, to_sort, s, max);
 	else if (to_sort->loc == A_bottom)

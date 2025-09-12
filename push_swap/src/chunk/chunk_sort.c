@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chunk_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 13:51:41 by xin               #+#    #+#             */
-/*   Updated: 2025/09/09 17:04:57 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:17:01 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,24 @@ void	ft_chunk_split(t_ps *data, t_chunk *to_split, t_split *des)
 {
 	int	pivot_1;
 	int	pivot_2;
-	int	max_value;
+	int	max_rank;
 	int	next_value;
 
 	init_val(&des->min, &des->mid, &des->max);
 	set_split_location(to_split->loc, &des->min, &des->mid, &des->max);
 	set_third_piovt(to_split->loc, to_split->size, &pivot_1, &pivot_2);
-	max_value = ft_get_max_value(data, to_split);
+	max_rank = ft_get_max_rank(data, to_split);
 	while (to_split->size--)
 	{
-		next_value = ft_get_chunk_value(data, to_split, 1);
-		if (next_value > max_value - pivot_2)
+		next_value = ft_get_chunk_rank(data, to_split, 1);
+		if (next_value > max_rank - pivot_2)
 		{
 			des->max.size += ft_move(data, to_split->loc, des->max.loc);
 			ft_split_max_reduction(data, &des->max);
 			if (a_partly_sort(data, 1) && to_split->size)
 				ft_easy_sort(data, to_split);
 		}
-		else if (next_value > max_value - pivot_1)
+		else if (next_value > max_rank - pivot_1)
 			des->mid.size += ft_move(data, to_split->loc, des->mid.loc);
 		else
 			des->min.size += ft_move(data, to_split->loc, des->min.loc);

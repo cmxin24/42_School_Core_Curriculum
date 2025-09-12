@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:33:51 by xin               #+#    #+#             */
-/*   Updated: 2025/09/09 20:06:00 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:43:29 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define CHECKER_BONUS_H
 
 # include "stack.h"
-# include "../lib/includes/get_next_line.h"
-# include "../lib/includes/libft.h"
 
 char	*get_next_line(int fd);
 int		main(int argc, char **argv);

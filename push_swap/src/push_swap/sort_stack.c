@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_stack.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 16:19:42 by xin               #+#    #+#             */
-/*   Updated: 2025/09/10 10:44:56 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:01:51 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_sort_three_a(t_ps *data)
 	int	second;
 	int	third;
 
-	first = ft_get_value(&data->a, 1);
-	second = ft_get_value(&data->a, 2);
-	third = ft_get_value(&data->a, 3);
+	first = ft_get_rank(&data->a, 1);
+	second = ft_get_rank(&data->a, 2);
+	third = ft_get_rank(&data->a, 3);
 	if (first > second && third > second && third > first)
 		swap_a(data);
 	else if (first > second && third > second && first > third)
@@ -43,13 +43,13 @@ void	ft_sort_five_a(t_ps *data)
 {
 	while (ft_current_size(&data->a) > 3)
 	{
-		if (ft_get_value(&data->a, 1) == 1
-			|| ft_get_value(&data->a, 1) == 2)
+		if (ft_get_rank(&data->a, 1) == 1
+			|| ft_get_rank(&data->a, 1) == 2)
 			push_b(data);
 		else
 			rotate_a(data);
 	}
-	if (ft_get_value(&data->b, 1) < ft_get_value(&data->b, 2))
+	if (ft_get_rank(&data->b, 1) < ft_get_rank(&data->b, 2))
 		swap_b(data);
 	ft_sort_three_a(data);
 	push_a(data);

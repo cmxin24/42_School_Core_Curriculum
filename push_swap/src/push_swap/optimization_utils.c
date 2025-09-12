@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   optimization_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 17:30:10 by xin               #+#    #+#             */
-/*   Updated: 2025/09/09 16:56:44 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:34:46 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_op	op_from(t_list *node)
 	return ((t_op)(uintptr_t)node->content);
 }
 
-t_op	neutral_op(t_op op)
+t_op	opposite_op(t_op op)
 {
 	if (op == pa)
 		return (pb);

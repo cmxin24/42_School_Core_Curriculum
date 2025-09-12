@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   optimization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:49:49 by xin               #+#    #+#             */
-/*   Updated: 2025/09/09 18:42:17 by xin              ###   ########.fr       */
+/*   Updated: 2025/09/10 18:34:42 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	eliminate_opposite_op(t_list *op_list)
 	ref = op_list->next;
 	while (ref && ref->next)
 	{
-		op_neutral = neutral_op(op_from(ref));
+		op_neutral = opposite_op(op_from(ref));
 		if (op_neutral)
 		{
 			cmp = ref->next;
