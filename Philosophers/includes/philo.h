@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/12 17:38:13 by meyu              #+#    #+#             */
-/*   Updated: 2025/09/22 19:09:10 by meyu             ###   ########.fr       */
+/*   Created: 2025/09/22 18:48:57 by meyu              #+#    #+#             */
+/*   Updated: 2025/09/22 18:58:09 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#ifndef PHILO_H
+# define PHILO_H
 
-int	main(int argc, char **argv)
-{
-	//check argc and argv
-	//init philos
-	//start ativity and print
-	//check if need stop
-	//clean the memory
-	return (0);
-}
+
+
+#endif
