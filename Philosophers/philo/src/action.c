@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:08:30 by xin               #+#    #+#             */
-/*   Updated: 2025/10/02 17:19:05 by xin              ###   ########.fr       */
+/*   Updated: 2025/10/02 18:49:50 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,17 @@ static void	ft_handle_one_philo(t_philo *philo)
 
 static void	ft_take_forks(t_philo *philo)
 {
-	if (philo->pos % 2 == 0)
-	{
-		pthread_mutex_lock(philo->right_fork);
-		ft_print_action(philo, "has taken a fork");
-		pthread_mutex_lock(philo->left_fork);
-		ft_print_action(philo, "has taken a fork");
-	}
-	else
+	while (!philo->data->dead)
 	{
 		pthread_mutex_lock(philo->left_fork);
-		ft_print_action(philo, "has taken a fork");
-		pthread_mutex_lock(philo->right_fork);
-		ft_print_action(philo, "has taken a fork");
+		if (pthread_mutex_trylock(philo->right_fork) == 0)
+		{
+			ft_print_action(philo, "has taken a fork");
+			ft_print_action(philo, "has taken a fork");
+			return ;
+		}
+		pthread_mutex_unlock(philo->left_fork);
+		usleep(1000);
 	}
 }
 
@@ -82,10 +80,7 @@ void	*ft_philo_actions(void *arg)
 		ft_handle_one_philo(philo);
 		return (NULL);
 	}
-	if (philo->pos % 2 == 0)
-		usleep((philo->data->time_to_eat * 1000) / 2);
-	while (!philo->data->dead
-		&& (philo->data->meal_nums == -1
+	while (!philo->data->dead && (philo->data->meal_nums == -1
 			|| philo->meals_eaten < philo->data->meal_nums))
 	{
 		ft_take_forks(philo);
