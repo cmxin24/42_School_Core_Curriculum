@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:08:30 by xin               #+#    #+#             */
-/*   Updated: 2025/10/02 17:10:50 by xin              ###   ########.fr       */
+/*   Updated: 2025/10/02 17:19:05 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,10 @@ static void	ft_eat(t_philo *philo)
 	philo->last_meal = ft_get_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal);
-
 	ft_print_action(philo, "is eating");
 	ft_usleep(philo->data, philo->data->time_to_eat);
-
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-
 	if (philo->data->meal_nums != -1
 		&& philo->meals_eaten >= philo->data->meal_nums)
 	{

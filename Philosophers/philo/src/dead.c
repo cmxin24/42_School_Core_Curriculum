@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:14:06 by xin               #+#    #+#             */
-/*   Updated: 2025/10/02 17:07:06 by xin              ###   ########.fr       */
+/*   Updated: 2025/10/02 17:18:44 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	*ft_dead_detector(void *arg)
 	}
 	return (NULL);
 }
-
 
 void	ft_clean_memory(t_data *data, t_philo *philos)
 {
