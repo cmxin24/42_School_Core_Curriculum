@@ -6,7 +6,7 @@
 #    By: xin <xin@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/25 13:16:16 by xin               #+#    #+#              #
-#    Updated: 2025/09/25 13:25:56 by xin              ###   ########.fr        #
+#    Updated: 2025/10/02 17:12:11 by xin              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ NAME		=	philo
 CFLAGS		= 	-Wall -Werror -Wextra -Iincludes
 
 SRCS		=	src/main.c			\
-				src/check_argv.c	
+				src/check_argv.c	\
+				src/action.c		\
+				src/dead.c			\
+				src/init.c
 
 OBJ			=	$(SRCS:src/%.c=build/%.o)
 
