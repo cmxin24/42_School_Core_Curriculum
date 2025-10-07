@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:48:57 by meyu              #+#    #+#             */
-/*   Updated: 2025/10/07 17:23:55 by xin              ###   ########.fr       */
+/*   Updated: 2025/10/07 17:39:20 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/time.h>
 # include <stdio.h>
 # include <semaphore.h>
+# include <fcntl.h>
 
 typedef struct s_data
 {
