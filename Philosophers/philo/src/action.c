@@ -6,7 +6,7 @@
 /*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:08:30 by xin               #+#    #+#             */
-/*   Updated: 2025/10/02 18:49:50 by meyu             ###   ########.fr       */
+/*   Updated: 2025/10/07 17:53:17 by meyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,21 @@ static void	ft_handle_one_philo(t_philo *philo)
 
 static void	ft_take_forks(t_philo *philo)
 {
-	while (!philo->data->dead)
+	if (philo->pos % 2 == 0)
+		usleep(100);
+	if (philo->pos % 2 == 0)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		ft_print_action(philo, "has taken a fork");
+		pthread_mutex_lock(philo->left_fork);
+		ft_print_action(philo, "has taken a fork");
+	}
+	else
 	{
 		pthread_mutex_lock(philo->left_fork);
-		if (pthread_mutex_trylock(philo->right_fork) == 0)
-		{
-			ft_print_action(philo, "has taken a fork");
-			ft_print_action(philo, "has taken a fork");
-			return ;
-		}
-		pthread_mutex_unlock(philo->left_fork);
-		usleep(1000);
+		ft_print_action(philo, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+		ft_print_action(philo, "has taken a fork");
 	}
 }
 
