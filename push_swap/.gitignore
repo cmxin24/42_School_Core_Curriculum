@@ -1,7 +1,0 @@
-a.out
-*.o
-.vscode
-libft.a
-printf.a
-output.txt
-push_swap

@@ -1,8 +1,0 @@
-build/
-*.o
-
-/philo/philo
-
-!philo/includes/
-!philo/src/
-!philo/Makefile

@@ -1,9 +1,0 @@
-a.out
-.DS_Store
-*.o
-.vscode
-Game
-libft.a
-output.txt
-/so_long/so_long
-/push_swap/push_swap
