@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:09:48 by xin               #+#    #+#             */
-/*   Updated: 2025/10/02 18:40:39 by meyu             ###   ########.fr       */
+/*   Updated: 2025/11/19 21:04:08 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_init_data(t_data *data, int argc, char **argv)
 		pthread_mutex_init(&data->forks[i - 1], NULL);
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->full, NULL);
+	pthread_mutex_init(&data->death, NULL);
 	data->start_time = ft_get_time();
 	return (0);
 }
@@ -66,11 +67,13 @@ void	ft_print_action(t_philo *philo, char *action)
 	long long	time;
 
 	pthread_mutex_lock(&philo->data->print);
+	pthread_mutex_lock(&philo->data->death);
 	if (!philo->data->dead)
 	{
 		time = ft_get_time() - philo->data->start_time;
 		printf("%lld %d %s\n", time, philo->pos, action);
 	}
+	pthread_mutex_unlock(&philo->data->death);
 	pthread_mutex_unlock(&philo->data->print);
 }
 

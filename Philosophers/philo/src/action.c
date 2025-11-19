@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:08:30 by xin               #+#    #+#             */
-/*   Updated: 2025/10/07 17:53:17 by meyu             ###   ########.fr       */
+/*   Updated: 2025/11/19 21:06:06 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ static void	ft_handle_one_philo(t_philo *philo)
 	ft_print_action(philo, "has taken a fork");
 	ft_usleep(philo->data, philo->data->time_to_die);
 	pthread_mutex_lock(&philo->data->print);
+	pthread_mutex_lock(&philo->data->death);
 	if (!philo->data->dead)
 	{
 		printf("%lld %d died\n",
 			ft_get_time() - philo->data->start_time, philo->pos);
 		philo->data->dead = true;
 	}
+	pthread_mutex_unlock(&philo->data->death);
 	pthread_mutex_unlock(&philo->data->print);
 	pthread_mutex_unlock(philo->left_fork);
 }
@@ -77,6 +79,7 @@ static void	ft_sleep_and_think(t_philo *philo)
 void	*ft_philo_actions(void *arg)
 {
 	t_philo	*philo;
+	bool	dead;
 
 	philo = (t_philo *)arg;
 	if (philo->data->philo_nums == 1)
@@ -84,7 +87,10 @@ void	*ft_philo_actions(void *arg)
 		ft_handle_one_philo(philo);
 		return (NULL);
 	}
-	while (!philo->data->dead && (philo->data->meal_nums == -1
+	pthread_mutex_lock(&philo->data->death);
+	dead = philo->data->dead;
+	pthread_mutex_unlock(&philo->data->death);
+	while (!dead && (philo->data->meal_nums == -1
 			|| philo->meals_eaten < philo->data->meal_nums))
 	{
 		ft_take_forks(philo);

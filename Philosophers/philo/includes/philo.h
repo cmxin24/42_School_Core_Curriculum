@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:48:57 by meyu              #+#    #+#             */
-/*   Updated: 2025/10/02 18:40:32 by meyu             ###   ########.fr       */
+/*   Updated: 2025/11/19 21:04:49 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 	int				time_to_die;
 	int				meal_nums;
 	bool			dead;
+	pthread_mutex_t	death;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	struct s_philo	*philos;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dead.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meyu <meyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:14:06 by xin               #+#    #+#             */
-/*   Updated: 2025/10/02 18:40:47 by meyu             ###   ########.fr       */
+/*   Updated: 2025/11/19 21:05:17 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 void	ft_usleep(t_data *data, long long ms)
 {
 	long long	start;
+	bool		dead;
 
 	start = ft_get_time();
-	while (!data->dead && (ft_get_time() - start) < ms)
+	while (1)
+	{
+		pthread_mutex_lock(&data->death);
+		dead = data->dead;
+		pthread_mutex_unlock(&data->death);
+		if (dead || (ft_get_time() - start) >= ms)
+			break ;
 		usleep(500);
+	}
 }
 
 static int	ft_all_full(t_data *data)
@@ -43,12 +51,14 @@ static int	ft_check_death(t_data *data, int i)
 		{
 			pthread_mutex_unlock(&data->philos[i].meal);
 			pthread_mutex_lock(&data->print);
+			pthread_mutex_lock(&data->death);
 			if (!data->dead)
 			{
 				printf("%lld %d died\n",
 					now - data->start_time, data->philos[i].pos);
 				data->dead = true;
 			}
+			pthread_mutex_unlock(&data->death);
 			pthread_mutex_unlock(&data->print);
 			return (1);
 		}
@@ -92,6 +102,7 @@ void	ft_clean_memory(t_data *data, t_philo *philos)
 	}
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->full);
+	pthread_mutex_destroy(&data->death);
 	free(data->forks);
 	free(philos);
 }
