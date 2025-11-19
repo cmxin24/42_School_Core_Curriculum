@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:48:57 by meyu              #+#    #+#             */
-/*   Updated: 2025/11/19 21:04:49 by xin              ###   ########.fr       */
+/*   Updated: 2025/11/19 21:12:33 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ long long	ft_get_time(void);
 void		ft_usleep(t_data *data, long long ms);
 void		*ft_dead_detector(void *arg);
 void		ft_clean_memory(t_data *data, t_philo *philos);
+bool		is_dead(t_data *data);
+long long	get_meals_eaten(t_philo *philo);
 
 #endif

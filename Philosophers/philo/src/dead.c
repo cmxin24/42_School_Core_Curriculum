@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:14:06 by xin               #+#    #+#             */
-/*   Updated: 2025/11/19 21:05:17 by xin              ###   ########.fr       */
+/*   Updated: 2025/11/19 21:13:32 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 void	ft_usleep(t_data *data, long long ms)
 {
 	long long	start;
-	bool		dead;
 
 	start = ft_get_time();
 	while (1)
 	{
-		pthread_mutex_lock(&data->death);
-		dead = data->dead;
-		pthread_mutex_unlock(&data->death);
-		if (dead || (ft_get_time() - start) >= ms)
-			break ;
+		if (is_dead(data))
+			return ;
+		if (ft_get_time() - start >= ms)
+			return ;
 		usleep(500);
 	}
 }

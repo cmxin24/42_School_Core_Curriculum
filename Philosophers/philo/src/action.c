@@ -6,7 +6,7 @@
 /*   By: xin <xin@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:08:30 by xin               #+#    #+#             */
-/*   Updated: 2025/11/19 21:06:06 by xin              ###   ########.fr       */
+/*   Updated: 2025/11/19 21:14:51 by xin              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	ft_sleep_and_think(t_philo *philo)
 void	*ft_philo_actions(void *arg)
 {
 	t_philo	*philo;
-	bool	dead;
 
 	philo = (t_philo *)arg;
 	if (philo->data->philo_nums == 1)
@@ -87,16 +86,14 @@ void	*ft_philo_actions(void *arg)
 		ft_handle_one_philo(philo);
 		return (NULL);
 	}
-	pthread_mutex_lock(&philo->data->death);
-	dead = philo->data->dead;
-	pthread_mutex_unlock(&philo->data->death);
-	while (!dead && (philo->data->meal_nums == -1
-			|| philo->meals_eaten < philo->data->meal_nums))
+	while (!is_dead(philo->data)
+		&& (philo->data->meal_nums == -1
+			|| get_meals_eaten(philo) < philo->data->meal_nums))
 	{
 		ft_take_forks(philo);
 		ft_eat(philo);
 		if (philo->data->meal_nums != -1
-			&& philo->meals_eaten >= philo->data->meal_nums)
+			&& get_meals_eaten(philo) >= philo->data->meal_nums)
 			break ;
 		ft_sleep_and_think(philo);
 	}

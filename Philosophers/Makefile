@@ -6,7 +6,7 @@
 #    By: xin <xin@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/25 13:16:16 by xin               #+#    #+#              #
-#    Updated: 2025/10/07 17:08:26 by xin              ###   ########.fr        #
+#    Updated: 2025/11/19 21:14:36 by xin              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS		=	philo/src/main.c			\
 				philo/src/check_argv.c		\
 				philo/src/action.c			\
 				philo/src/dead.c			\
-				philo/src/init.c
+				philo/src/init.c			\
+				philo/src/mutex.c
 
 OBJ			=	$(SRCS:philo/src/%.c=build/%.o)
 
