@@ -22,44 +22,39 @@ int	main(int argc, char *argv[])
 	char	*input = NULL;
 	int		input_len = 0;
 	char	*s;
-	char	s_len;
-	int		index = 0;
+	size_t	s_len;
+	size_t	index = 0;
 
 	if (argc != 2 || (argc == 2 && argv[1][0] == '\0'))
 		return (1);
 	s = argv[1];
 	s_len = strlen(s);
-	while (bytes > 0)
+	while (1)
 	{
 		bytes = read(0, buffer, BUFFER_SIZE);
-		if (bytes < BUFFER_SIZE)
-		{
-			input = realloc(input, input_len + bytes + 1);
-			if (!input)
-				return (print_error());
-			memmove(input + input_len, buffer, bytes);
-			input_len += bytes;
-			input[input_len] = '\0';
+		if (bytes < 0)
+			return (print_error());
+		if (bytes == 0)
 			break ;
-		}
-		else if (bytes == BUFFER_SIZE)
-		{
-			input = realloc(input, input_len + BUFFER_SIZE + 1);
-			if (!input)
-				return (print_error());
-			memmove(input + input_len, buffer, BUFFER_SIZE);
-			input_len += BUFFER_SIZE;
-			input[input_len] = '\0';
-		}
+		input = realloc(input, input_len + bytes + 1);
+		if (!input)
+			return (print_error());
+		memmove(input + input_len, buffer, bytes);
+		input_len += bytes;
+		input[input_len] = '\0';
 	}
+	size_t left = input_len;
 	char *position;
-	while ((position = memmem(input, input_len, s, s_len)))
+	char *input_copy = input;
+	while ((position = memmem(input_copy, left, s, s_len)))
 	{
 		int i = position - input;
 		for(index = 0; index < s_len; index++)
 		{
 			input[i + index] = '*';
 		}
+		input_copy = position + s_len;
+		left = input_len - (input_copy - input);
 	}
 	printf("%s", input);
 	free(input);
